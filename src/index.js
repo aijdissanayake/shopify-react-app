@@ -10,6 +10,7 @@ import IndexItem from './components/IndexItem';
 import EditItem from './components/EditItem';
 import Tabs from './components/TabsView';
 import FulfilledOrders from './components/fulfilledOrders';
+import Logo from './components/tracifiedLogo'
 
 import ProductMapping from './components/ProductMappingModule/ProductMapping';
 import '@shopify/polaris/styles.css';
@@ -17,6 +18,7 @@ import '@shopify/polaris/styles.css';
 ReactDOM.render(
     <Router basename="/shopify" >
         <div>
+            <Route path='/main-view' component={Logo}/>
             <Route path='/main-view' component={Tabs}/>
             <Route exact path='/add-item' component={AddItem} />
             <Route exact path='/index' component={IndexItem}/>
