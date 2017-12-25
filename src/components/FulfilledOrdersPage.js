@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import CollapaseCards from './collapase';
 import * as axios from 'axios';
-import { Container, Row, Col, Card } from 'reactstrap';
-import { Thumbnail, Page, List, Button, Stack, Select, ResourceList } from '@shopify/polaris';
+import { Page } from '@shopify/polaris';
+import FulfilledOrder from './FulfilledOrder';
 import Loading from './Loading';
-const QRCode = require('qrcode.react');
 
-class FulfilledOrders extends Component {
+class FulfilledOrdersPage extends Component {
     constructor() {
         super();
         this.state = {
@@ -41,7 +39,6 @@ class FulfilledOrders extends Component {
             // All the order details
             var orders = this.state.orders;
             console.log(orders);
-
             var orderArray = [];
             orders.forEach((order) => {
                 var items = order.line_items;
@@ -71,47 +68,34 @@ class FulfilledOrders extends Component {
 
             return (
                 <Page title="Unfulfilled Orders" separator>
+                    <table className="table table-striped">
+                        <thead>
+                          <tr>
+                            <td ><b>Order No</b></td>
+                            <td ><b>Customer</b></td>
+                            <td ><b>Order Item to View</b></td>
+                            <td ><b>Trace</b></td>
+                          </tr>
+                        </thead>
+                        <tbody>
+          
                         {orderArray.map((order, index) => {
-    const qrValue = order.order_number.toString();
-    const title = "Order No: " + order.order_number;
-    return (
-        <Card key={order.order_number}>
-
-            <Row>
-                <Col sm="2">
-                <span>{title}</span>
-                </Col>
-                <Col sm="3">
-                <span>Customer : {order.customer}</span>                                    
-                </Col>
-                <Col sm="4">
-                <Select
-                    options={[
-                        'two',
-                        'three',
-                        {
-                            label: 'four',
-                            value: '4',
-                        },
-                    ]}
-                    placeholder="Select an Item to view"
-                />
-                </Col>
-                <Col sm="3">
-                <Button>View Trace More Timeline</Button>
-                
-                </Col>
-            </Row>
-        </Card>
-    )
-})}
+                        
+                        return (
+                            <FulfilledOrder key={order.order_number} order={order} />
+                        )
+                    })}
+          
+                        </tbody>
+                      </table>
                 </Page>
+                
             );
         }
     }
 }
 
-export default FulfilledOrders;
+export default FulfilledOrdersPage;
 
 // {orderArray.map((order, index) => {
 //     const qrValue = order.order_number.toString();
@@ -141,7 +125,7 @@ export default FulfilledOrders;
 //                 </Col>
 //                 <Col sm="3">
 //                 <Button primary>View Trace More Timeline</Button>
-                
+
 //                 </Col>
 //             </Row>
 //         </Card>
@@ -177,3 +161,12 @@ export default FulfilledOrders;
                             return <ResourceList.Item key={index} {...item} />;
                         }}
                     />   */}
+
+{/* <Page title="Unfulfilled Orders" separator>
+                    {orderArray.map((order, index) => {
+                        const title = "Order No: " + order.order_number;
+                        return (
+                            <FulfilledOrder key={order.order_number} order={order} />
+                        )
+                    })}
+                </Page> */}

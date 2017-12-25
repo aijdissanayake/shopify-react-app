@@ -9,7 +9,7 @@ import AddItem from './components/AddItem';
 import IndexItem from './components/IndexItem';
 import EditItem from './components/EditItem';
 import Tabs from './components/TabsView';
-import FulfilledOrders from './components/fulfilledOrders';
+import FulfilledOrdersPage from './components/FulfilledOrdersPage';
 import Logo from './components/tracifiedLogo'
 
 import ProductMapping from './components/ProductMappingModule/ProductMapping';
@@ -24,7 +24,7 @@ ReactDOM.render(
             <Route exact path='/index' component={IndexItem}/>
             <Route exact path='/edit/:id' component={EditItem} />
             <Route exact path='/product-mapping' component={ProductMapping} />
-            <Route exact path='/fulfilled-orders' component={FulfilledOrders} />
+            <Route exact path='/fulfilled-orders' component={FulfilledOrdersPage} />
         </div>
     </Router>,
     document.getElementById('root')
