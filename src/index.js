@@ -12,6 +12,7 @@ import Tabs from './components/TabsView';
 import FulfilledOrdersPage from './components/FulfilledOrdersPage';
 import Logo from './components/tracifiedLogo';
 import ProductMapping from './components/ProductMappingModule/ProductMapping';
+import Install from './components/Install';
 import TraceTimeLine from './components/TraceTimeLine';
 import '@shopify/polaris/styles.css';
 
@@ -25,6 +26,7 @@ ReactDOM.render(
             <Route exact path='/edit/:id' component={EditItem} />
             <Route exact path='/product-mapping' component={ProductMapping} />
             <Route exact path='/fulfilled-orders' component={FulfilledOrdersPage} />
+            <Route exact path='/install-guide' component={Install} />
             <Route exact path='/trace/:orderID/:itemID' component={Logo} />
             <Route exact path='/trace/:orderID/:itemID' component={TraceTimeLine} />
 
