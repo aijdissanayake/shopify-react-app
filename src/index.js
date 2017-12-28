@@ -11,7 +11,7 @@ import EditItem from './components/EditItem';
 import Tabs from './components/TabsView';
 import FulfilledOrders from './components/fulfilledOrders';
 import AccountVerify from './components/AccountVerify';
-
+import TraceTimeLine from './components/TraceTimeLine';
 import ProductMapping from './components/ProductMappingModule/ProductMapping';
 import '@shopify/polaris/styles.css';
 
@@ -25,6 +25,9 @@ ReactDOM.render(
             <Route exact path='/product-mapping' component={ProductMapping} />
             <Route exact path='/fulfilled-orders' component={FulfilledOrders} />
             <Route exact path='/account-verify' component={AccountVerify} />
+            <Route exact path='/account-verify' component={AccountVerify} />
+            <Route exact path='/timeline/:orderID/:itemID' component={TraceTimeLine} />
+            
         </div>
     </Router>,
     document.getElementById('root')

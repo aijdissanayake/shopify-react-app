@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '@shopify/polaris/styles.css';
 import { Row, Col } from 'reactstrap';
+import * as axios from 'axios';
 import {
     AccountConnection,
     Page,
@@ -11,49 +12,64 @@ import {
     Heading,
     FormLayout,
     Card
-  
-  } from '@shopify/polaris';
 
-  
+} from '@shopify/polaris';
+
+
 class AccountVerify extends Component {
 
- render(){
+    constructor(props) {
+        super(props);
+        this.state = {
+            tempToken: ""
+        };
+        this.onChange = this.onChange.bind(this);
+        this.onClick = this.onClick.bind(this);
+    }
 
-    return(
+    onChange(token, id) {
+        this.setState({
+            tempToken: token
+        });
+    }
 
-    <Page>
-      <Card title="Account Verficaction ">
-        
-        <FormLayout>
-        
-        <Card.Section>
-        <Col sm ="8" offset ="2"> 
-        <TextField label="Enter the access token" />
-        </Col>
-        <Col sm ="4" offset ="2">
-        <Button primary onClick={this.onSubmit}>Connect</Button>
-        </Col>
-        </Card.Section>
+    onClick() {
 
-        <Card.Section>
-          <p>  You may want to connect to your Tracified Account for further proceedings</p>
-        </Card.Section>
+        const tempToken = this.state.tempToken;
+        axios.post('/shopify/tracified/account/verify', { tempToken })
+            .then((result) => {
+                alert("Account verified successfully " + result.data);
+                console.log(result);
+            });
+    }
 
-        </FormLayout>
-     
-      <Row>
+    render() {
+        return (
+            <Page>
+                <Card title="Tracified Account Connection ">
 
-
-      </Row>
-
-    
-      
- 
-     
-      </Card>
-     
-     </Page>
-    );
-  }
+                    <FormLayout>
+                        <Card.Section>
+                            <p> Looks like you haven't connected a Tracified Account yet.</p> 
+                            <p> Please Contact your Tracified Admin and submit the temporary token here to connect an account for further proceedings</p>
+                        </Card.Section>
+                        <Card.Section>
+                            <Col sm="10" offset="2">
+                                <TextField onChange={this.onChange} value={this.state.tempToken} label="Enter the access token" />
+                            </Col>
+                            <Col sm="2" offset="2">
+                                <Button primary onClick={this.onClick}>Connect</Button>
+                            </Col>
+                        </Card.Section>
+                        <Card.Section>
+                        </Card.Section>
+                    </FormLayout>
+                    <Row>
+                    </Row>
+                </Card>
+            </Page>
+        );
+    }
 }
-export default AccountVerify
+
+export default AccountVerify;

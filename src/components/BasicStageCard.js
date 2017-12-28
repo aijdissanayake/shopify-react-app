@@ -31,8 +31,9 @@ class Loading extends Component {
                     * If this depth is very limited just if else may work.
                     * Otherwise may need to go for a recursive way to render.
                     * hopefully the depth may be limited to a known small number (like 2 or 3)
-                    * Fist need to get the stage layout.
-                    * once that's done, data card need to be designed                   
+                    * Fist need to get the stage layout
+                    * 
+                    * once that's done, data card need to be designed                 
                     */
                 })}
             </Card>
