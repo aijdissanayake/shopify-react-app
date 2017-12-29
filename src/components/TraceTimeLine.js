@@ -40,6 +40,15 @@ class TraceTimeLine extends Component {
     }
 
     render() {
+
+      
+    var container= {
+      padding: 80,
+      fontSize:16
+    };
+  
+
+
         if (this.state.istimelineLoading) {
             return <Loading />;
         }
@@ -65,13 +74,13 @@ class TraceTimeLine extends Component {
                                              <TextStyle variation='strong' >
                                             {stage.title}
                                             </TextStyle>
-                                            <Card.Section>
-                                                  <TextStyle variation='subdued'>  This is the description of the  stage </TextStyle> 
-                                            </Card.Section>
+                                                                                   
+                                          
                                            
                                             </Row>
-
+                                           
                                         </Card.Section>
+                                        <div style={container}>
                                         {/* {stage.data.map((traceabilityData, index) => {
                                             const data = traceabilityData.name + " - " + traceabilityData.type;
                                             return (
@@ -101,8 +110,9 @@ class TraceTimeLine extends Component {
                                             })
 
                                         }
-
+                                     
                                         {/* } */}
+                                        </div>
                                     </Card>
 
 
