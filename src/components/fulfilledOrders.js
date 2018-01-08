@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import SearchInput, {createFilter} from 'react-search-input'
 import CollapaseCards from './collapase';
 import * as axios from 'axios';
 import { Container, Row, Col, Card } from 'reactstrap';
 import { Thumbnail, Page, List, Button, Stack, Select, ResourceList } from '@shopify/polaris';
 import Loading from './Loading';
 const QRCode = require('qrcode.react');
+const KEYS_TO_FILTER = ['']
+
 
 class FulfilledOrders extends Component {
     constructor() {
@@ -12,10 +15,16 @@ class FulfilledOrders extends Component {
         this.state = {
             orders: [],
             products: {},
-            isOrderListLoading: true
-        };
-    }
+            isOrderListLoading: true,
+            searchTerm: ''
+            
+        
+        }
 
+      this.searchUpdated;
+    }
+  
+     
     componentDidMount() {
         axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
             .then(response => {
@@ -29,9 +38,11 @@ class FulfilledOrders extends Component {
                     isOrderListLoading: false
                 });
             });
+            
     }
 
 
+ 
     render() {
 
         if (this.state.isOrderListLoading) {
@@ -41,6 +52,8 @@ class FulfilledOrders extends Component {
             // All the order details
             var orders = this.state.orders;
             console.log(orders);
+         //   console.log(orders.order_number);
+            
 
             var orderArray = [];
             orders.forEach((order) => {
@@ -57,6 +70,7 @@ class FulfilledOrders extends Component {
                 });
 
                 const customer = order.customer.first_name + " " + order.customer.last_name;
+                console.log(order.order_number);
 
                 orderArray.push({
                     id: order.id,
@@ -70,13 +84,15 @@ class FulfilledOrders extends Component {
 
 
             return (
-                <Page title="Unfulfilled Orders" separator>
+                <Page title="Fulfilled Orders" separator>
                         {orderArray.map((order, index) => {
     const qrValue = order.order_number.toString();
     const title = "Order No: " + order.order_number;
     return (
+       
+       
         <Card key={order.order_number}>
-
+           
             <Row>
                 <Col sm="2">
                 <span>{title}</span>
@@ -102,6 +118,7 @@ class FulfilledOrders extends Component {
                 
                 </Col>
             </Row>
+        
         </Card>
     )
 })}
