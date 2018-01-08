@@ -7,9 +7,10 @@ import {
     TextStyle,
     Card,
     Page,
-    Avatar
+    Avatar,
+    Heading
 } from '@shopify/polaris';
-import { Row, Col, Container} from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 
 
 class TraceTimeLine extends Component {
@@ -41,12 +42,22 @@ class TraceTimeLine extends Component {
 
     render() {
 
-      
-    var container= {
-      padding: 80,
-      fontSize:16
-    };
-  
+
+        var description = {
+            padding: "2% 2% 2% 7%",
+            fontSize: 16
+        };
+
+        var line = {
+            "margin": "90% 35% 35% 35%",
+            "border-size": "0.5px",
+            "border-width": "thin",
+            "border-style": "solid",
+            "border-color": "black",
+            "height": "100px",
+            "width": "0%"
+        }
+
 
 
         if (this.state.istimelineLoading) {
@@ -58,71 +69,61 @@ class TraceTimeLine extends Component {
             return (
                 <Page title="Trace Back Timeline" separator>
                     <DisplayText size="small">
-                        
-                            {this.state.timeline.items.map((stage, index) => {
-                                return (
-                                    <Card key={stage.stage}
-                                    >
-                                        <Card.Section>
-                                            <Row>
+
+                        {this.state.timeline.items.map((stage, index) => {
+                            return (
+                                <Card key={stage.stage}
+                                >
+                                    <Card.Section>
+                                        <Row>
                                             <Col sm='1'>
-                                            <Avatar
-                                                customer
-                                                name="Farrah"
-                                            />
-                                             </Col>
-                                             <TextStyle variation='strong' >
-                                            {stage.title}
+                                                <Avatar
+                                                    customer
+                                                    name="Farrah"
+                                                    source={stage.icon}
+                                                />
+                                            </Col>
+                                            <Col sm='8'>
+                                            <TextStyle variation='strong' >
+                                                {index+1}.&nbsp;{stage.title}
+
                                             </TextStyle>
-                                                                                   
-                                          
-                                           
+                                            </Col>
+
+
+
+                                        </Row>
+                                        <div >
+                                            <Row>
+                                                <Col sm="1">
+                                                    <div style={line}></div>
+                                                </Col>
+                                                <Col sm="8">
+                                                    <Heading> <div > {stage.description} </div> </Heading> <br />
+
+                                                    {
+
+                                                        Object.keys(stage.data).map(function (key) {
+                                                            return <div> {stage.data[key].title}</div>;
+                                                        })
+
+                                                    }
+                                                </Col>
                                             </Row>
-                                           
-                                        </Card.Section>
-                                        <div style={container}>
-                                        {/* {stage.data.map((traceabilityData, index) => {
-                                            const data = traceabilityData.name + " - " + traceabilityData.type;
-                                            return (
-                                                <div>
-                                                
-                                                <Card>
-                                                    {data}
-                                                </Card>
-                                                </div>
-
-                                            )
-                                        })} */}
-
-                                        {
-                                            // ()=>{
-                                            //     let dataArray = [];
-                                            //     for (var key in stage.data) {
-                                            //         dataArray.push(
-                                            //             <div>{stage.data[key]}</div>
-                                            //         );
-                                            //         }
-                                            //       return dataArray;
-                                            //     }
-                                            
-                                            Object.keys(stage.data).map(function(key) {
-                                                return <div> {JSON.stringify(stage.data[key])}</div>;
-                                            })
-
-                                        }
-                                     
-                                        {/* } */}
                                         </div>
-                                    </Card>
+
+
+                                    </Card.Section>
+                                </Card>
 
 
 
-                                )
-                            })}
-                       
+                            )
+                        })}
+
                     </DisplayText>
                 </Page>
-                
+
             );
         }
     }
