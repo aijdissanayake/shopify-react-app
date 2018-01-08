@@ -6,7 +6,7 @@ import { Container, Row, Col, Card } from 'reactstrap';
 import { Thumbnail, Page, List, Button, Stack, Select, ResourceList } from '@shopify/polaris';
 import Loading from './Loading';
 const QRCode = require('qrcode.react');
-const KEYS_TO_FILTER = ['']
+const KEYS_TO_FILTER = ['order.order_number']
 
 
 class FulfilledOrders extends Component {
@@ -80,6 +80,7 @@ class FulfilledOrders extends Component {
                     created_at: order.created_at.substring(0, 10)
                 });
             });
+
 
 
 
