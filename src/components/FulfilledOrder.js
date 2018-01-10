@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Select } from '@shopify/polaris';
 import { EmbeddedApp, Alert, Modal } from '@shopify/polaris/embedded';
+import FulfilledOrdersPage from './FulfilledOrdersPage';
 
 class FulfilledOrder extends Component {
     constructor(props) {
@@ -32,7 +33,10 @@ class FulfilledOrder extends Component {
             });
         });
         return (
-            <tr>
+            
+           
+              <tr>
+                  
                 <td>
                     {order.order_number}
                 </td>
@@ -70,7 +74,7 @@ class FulfilledOrder extends Component {
                         />
                     </EmbeddedApp>
                 </td>
-            </tr>
+            </tr>            
         );
     }
 }

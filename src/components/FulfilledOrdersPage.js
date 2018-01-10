@@ -3,15 +3,28 @@ import * as axios from 'axios';
 import { Page } from '@shopify/polaris';
 import FulfilledOrder from './FulfilledOrder';
 import Loading from './Loading';
+import autoBind from 'react-autobind';
+import { debounce, inRange, isNil, omit } from 'lodash';
+
 
 class FulfilledOrdersPage extends Component {
-    constructor() {
+    constructor(props
+    ) {
         super();
         this.state = {
             orders: [],
             products: {},
-            isOrderListLoading: true
+            isOrderListLoading: true,
+            searchTerm: '',
+            value:''
         };
+
+        autoBind(this);
+
+        this.handleDebouncedChange = debounce(
+            this.handleDebouncedChange,
+            props.delay
+          );
     }
 
     componentDidMount() {
@@ -29,13 +42,56 @@ class FulfilledOrdersPage extends Component {
             });
     }
 
+   
+               
+        handleChange(event) {
+            const { value } = event.target;
+            const searchTerm = value.toLowerCase().trim();
+        
+            if (!value) {
+              this.clearSearch();
+              return;
+            }
+            
+            if (searchTerm) {
+                this.handleDebouncedChange(searchTerm);
+              }
+                console.log('Nisha');
+              
+            }
 
+            handleDebouncedChange(searchTerm) {
+                this.setState({
+                  searchTerm
+                });
+                console.log(this.state.orders.order_number);
+                const order1= this.state.orders;
+                console.log(order1);
+                console.log(order1[0].order_number);
+                  if(searchTerm== this.state.orders.order_number){
+
+                  }
+              }
+
+   handleUserInput(filterText) {
+                this.setState({
+                  filterText: this.state.orders.order_number,
+                });
+              }
+
+        //filterText = this.state.filterText;
+
+
+               
     render() {
 
         if (this.state.isOrderListLoading) {
             return <Loading />;
         }
         else {
+             
+
+
             // All the order details
             var orders = this.state.orders;
             console.log(orders);
@@ -63,14 +119,25 @@ class FulfilledOrdersPage extends Component {
                     created_at: order.created_at.substring(0, 10)
                 });
             });
-
-
+              
+            
 
             return (
                 <Page title="Unfulfilled Orders" separator>
                     <table className="table table-striped">
+                       
                         <thead>
-                          <tr>
+                            <tr>
+                            <input
+                             type="text"
+                             placeholder="Search..."
+                             value={this.props.filterText}
+                             ref="filterTextInput"
+                             onChange={this.handleChange}
+                             />
+
+                            </tr>
+                            <tr>
                             <td ><b>Order No</b></td>
                             <td ><b>Customer</b></td>
                             <td ><b>Order Item to View</b></td>
