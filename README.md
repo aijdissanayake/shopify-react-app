@@ -1,1 +1,1 @@
-React App for Shopify Plugin.
+# React App for Shopify Plugin forntend #
