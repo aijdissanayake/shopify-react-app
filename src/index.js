@@ -15,6 +15,7 @@ import ProductMapping from './components/ProductMappingModule/ProductMapping';
 import Install from './components/Install';
 import TraceTimeLine from './components/TraceTimeLine';
 import '@shopify/polaris/styles.css';
+import newTimeLine from './components/newTimeLine';
 
 ReactDOM.render(
     <Router basename="/shopify" >
@@ -29,6 +30,7 @@ ReactDOM.render(
             <Route exact path='/install-guide' component={Install} />
             <Route exact path='/trace/:orderID/:itemID' component={Logo} />
             <Route exact path='/trace/:orderID/:itemID' component={TraceTimeLine} />
+            <Route exact path='/new-trace/:orderID/:itemID' component={newTimeLine} />
 
         </div>
     </Router>,

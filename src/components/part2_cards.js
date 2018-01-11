@@ -50,8 +50,8 @@ class Part2Cards extends Component {
         // All the order details
 
         let orders = this.state.orders.filter(
-            (order1) => {
-                return order1.name.indexOf(this.state.search) !== -1;
+            (order) => {
+                return order.name.indexOf(this.state.search) !== -1;
             }
          );
 
