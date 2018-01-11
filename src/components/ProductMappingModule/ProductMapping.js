@@ -34,6 +34,7 @@ import { setTimeout } from 'timers';
 import { request } from 'http';
 import { Row, Col, Container} from 'reactstrap';
 import Loading from '../Loading';
+import './ProductMapping.css';
 
 
 
@@ -234,6 +235,18 @@ class ProductMapping extends Component {
       <div class="loader" id="productmapping">
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.js"></script>
+        <div class="saveBtn">
+        {/* Save Button */}
+        <Row>
+          <Col sm="10">
+          </Col>
+          <Col sm="2">
+            <Button primary onClick={this.onSubmit}>Save</Button>
+          </Col>
+        </Row>
+        </div>
+
+        <div class="product-Mapping">
         <Card title="Product Mapping Details">
           <br />
           <form>
@@ -252,15 +265,16 @@ class ProductMapping extends Component {
 
               </tbody>
             </table>
-            <Row>
+            {/* <Row>
               <Col sm="10">
               </Col>
               <Col sm="2">
                 <Button primary onClick={this.onSubmit}>Save</Button>
               </Col>
-            </Row>
+            </Row> */}
           </form>
         </Card>
+        </div>
       </div>
     );
     <ProductMapping /> , document.getElementById('productmapping')

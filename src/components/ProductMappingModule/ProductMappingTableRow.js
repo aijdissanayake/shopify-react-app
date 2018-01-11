@@ -131,6 +131,7 @@ render() {
           {this.props.obj.id}
           </td>   
                   <td>  
+                    <div id="selectPolaris">
                   <Select 
                   placeholder="Select"
                   options={traceOptions}
@@ -138,14 +139,17 @@ render() {
                   value = {this.state.selectVal}
                   id={this.props.obj.id}
                   />
+                  </div>
                   </td>      
           <td>
+            <div id="checkPolaris">
            <Checkbox 
            disabled = {this.state.CBdisabled}
            label="Traceability Enabled" 
            onChange={this.onPermissionChange}
            id={CheckboxID}
            checked = {this.state.CBchecked}/>
+           </div>
           </td>
         </tr>
     );

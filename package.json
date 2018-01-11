@@ -15,7 +15,6 @@
     "reactstrap": "^4.8.0",
     "qrcode.react": "^0.7.2",
     "prop-types": "^15.6.0",
-
     "base-64": "^0.1.0",
     "mdbootstrap": "^4.4.3",
     "mdbreact": "^4.0.0",
@@ -31,5 +30,3 @@
     "babel-cli": "^6.26.0"
   }
 }
-
-
