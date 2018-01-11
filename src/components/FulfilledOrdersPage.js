@@ -15,16 +15,10 @@ class FulfilledOrdersPage extends Component {
             orders: [],
             products: {},
             isOrderListLoading: true,
-            searchTerm: '',
-            value:''
+            search: ''
         };
 
-        autoBind(this);
-
-        this.handleDebouncedChange = debounce(
-            this.handleDebouncedChange,
-            props.delay
-          );
+       
     }
 
     componentDidMount() {
@@ -44,44 +38,11 @@ class FulfilledOrdersPage extends Component {
 
    
                
-        handleChange(event) {
-            const { value } = event.target;
-            const searchTerm = value.toLowerCase().trim();
-        
-            if (!value) {
-              this.clearSearch();
-              return;
-            }
-            
-            if (searchTerm) {
-                this.handleDebouncedChange(searchTerm);
-              }
-                console.log('Nisha');
-              
-            }
-
-            handleDebouncedChange(searchTerm) {
-                this.setState({
-                  searchTerm
-                });
-                console.log(this.state.orders.order_number);
-                const order1= this.state.orders;
-                console.log(order1);
-                console.log(order1[0].order_number);
-                  if(searchTerm== this.state.orders.order_number){
-
-                  }
-              }
-
-   handleUserInput(filterText) {
-                this.setState({
-                  filterText: this.state.orders.order_number,
-                });
-              }
-
-        //filterText = this.state.filterText;
-
-
+    updateSearch(event){
+        this.setState({
+            search: event.target.value.substr(0, 20)
+        });
+    }
                
     render() {
 
@@ -93,7 +54,11 @@ class FulfilledOrdersPage extends Component {
 
 
             // All the order details
-            var orders = this.state.orders;
+            let orders = this.state.orders.filter(
+               (order1) => {
+                   return order1.name.indexOf(this.state.search) !== -1;
+               }
+            );
             console.log(orders);
             var orderArray = [];
             orders.forEach((order) => {
@@ -119,7 +84,7 @@ class FulfilledOrdersPage extends Component {
                     created_at: order.created_at.substring(0, 10)
                 });
             });
-              
+           
             
 
             return (
@@ -130,10 +95,9 @@ class FulfilledOrdersPage extends Component {
                             <tr>
                             <input
                              type="text"
-                             placeholder="Search..."
-                             value={this.props.filterText}
-                             ref="filterTextInput"
-                             onChange={this.handleChange}
+                             placeholder="Enter the order id"
+                             value={this.state.search}
+                             onChange={this.updateSearch.bind(this)}
                              />
 
                             </tr>

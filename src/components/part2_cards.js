@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CollapaseCards from './collapase';
 import * as axios from 'axios';
 import { Container, Row, Col} from 'reactstrap';
-import { Thumbnail, Card, Page, List } from '@shopify/polaris';
+import { Thumbnail, Card, Page, List, Badge } from '@shopify/polaris';
 import Loading from './Loading';
 const QRCode = require('qrcode.react');
 
@@ -12,7 +12,8 @@ class Part2Cards extends Component {
         this.state = {
             orders: [],
             products: {},
-            isOrderListLoading: true
+            isOrderListLoading: true,
+            search: ''
         };
     }
 
@@ -33,6 +34,12 @@ class Part2Cards extends Component {
             });
     }
 
+    updateSearch(event){
+        this.setState({
+            search: event.target.value.substr(0, 20)
+        });
+    }
+            
 
     render() {
 
@@ -41,7 +48,14 @@ class Part2Cards extends Component {
         }
         else{
         // All the order details
-        var orders = this.state.orders;
+
+        let orders = this.state.orders.filter(
+            (order1) => {
+                return order1.name.indexOf(this.state.search) !== -1;
+            }
+         );
+
+       // var orders = this.state.orders;
         console.log(orders);
 
         var orderArray = [];
@@ -73,7 +87,18 @@ class Part2Cards extends Component {
 
         return (
             <Page title="Unfulfilled Orders" separator>
-
+           
+                <div>
+                    <Card>
+                             <input
+                             type="text"
+                             placeholder="Enter the order id"
+                             value={this.state.search}
+                             onChange={this.updateSearch.bind(this)}
+                             />
+                      </Card>
+                    </div>
+               
                 {orderArray.map((order, index) => {
                     const qrValue = order.order_number.toString();
                     const title = "Order ID: " + order.order_number;
