@@ -4,6 +4,7 @@ import * as axios from 'axios';
 import { Container, Row, Col} from 'reactstrap';
 import { Thumbnail, Card, Page, List, Badge } from '@shopify/polaris';
 import Loading from './Loading';
+
 const QRCode = require('qrcode.react');
 
 class Part2Cards extends Component {
@@ -85,17 +86,30 @@ class Part2Cards extends Component {
 
         console.log(orderArray);
 
+        var inputStyle={
+            marginLeft: '2%',
+            float: 'left',
+            padding: '1%',
+            fontSize: '17px',
+            marginTop: '2%',
+            borderStyle: 'dotted',
+            marginBottom:'2%'
+        }
+
         return (
             <Page title="Unfulfilled Orders" separator>
            
                 <div>
                     <Card>
+                        {/* <div className="searchBar"> */}
                              <input
                              type="text"
                              placeholder="Enter the order id"
                              value={this.state.search}
                              onChange={this.updateSearch.bind(this)}
+                             style={inputStyle}
                              />
+                        {/* </div> */}
                       </Card>
                     </div>
                
