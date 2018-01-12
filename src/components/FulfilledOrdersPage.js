@@ -3,8 +3,8 @@ import * as axios from 'axios';
 import { Page } from '@shopify/polaris';
 import FulfilledOrder from './FulfilledOrder';
 import Loading from './Loading';
-import autoBind from 'react-autobind';
-import { debounce, inRange, isNil, omit } from 'lodash';
+// import autoBind from 'react-autobind';
+// import { debounce, inRange, isNil, omit } from 'lodash';
 
 
 class FulfilledOrdersPage extends Component {
