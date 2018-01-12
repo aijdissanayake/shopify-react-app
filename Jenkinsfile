@@ -16,7 +16,6 @@ pipeline {
   post {
     always {
       echo 'Process finished'
-      junit 'dist/reports/**/*.xml'
       deleteDir()
     }
     success {
