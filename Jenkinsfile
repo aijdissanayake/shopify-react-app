@@ -20,10 +20,10 @@ pipeline {
       deleteDir()
     }
     success {
-      slackSend "Yay! ${env.JOB_NAME} build ${env.BUILD_NUMBER} succeeded! 😎"
+      echo "Yay! succeeded! 😎"
     }
     failure {
-      slackSend "Well, Build failed 💀"
+      echo "Well, Build failed 💀"
     }
   }
 }
