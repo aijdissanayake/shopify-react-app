@@ -85,11 +85,25 @@ class FulfilledOrdersPage extends Component {
                 });
             });
            
-            
+            var inputStyle1={
+                marginLeft: '2%',
+                float: 'left',
+                padding: '1%',
+                fontSize: '17px',
+                marginTop: '2%',
+                borderStyle: 'dotted',
+                marginBottom:'2%',
+                height:'45px'
+            }
+
+            var tableStyle={
+                backgroundColor:"white"
+            }
+    
 
             return (
                 <Page title="Unfulfilled Orders" separator>
-                    <table className="table table-striped">
+                    <table className="table table-striped" style={tableStyle}>
                        
                         <thead>
                             <tr>
@@ -98,6 +112,7 @@ class FulfilledOrdersPage extends Component {
                              placeholder="Enter the order id"
                              value={this.state.search}
                              onChange={this.updateSearch.bind(this)}
+                             style={inputStyle1}
                              />
 
                             </tr>
