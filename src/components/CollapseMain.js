@@ -7,11 +7,11 @@ const QRCode = require('qrcode.react');
 
 class CollapseMain extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.toggle = this.toggle.bind(this);
         this.state = {
-            collapase: false
+            collapse: false
         };
     }
 
