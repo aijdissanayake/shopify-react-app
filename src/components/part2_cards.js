@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import CollapseMain from './CollapseMain';
 import Uncollapsed from './Uncollapsed';
 import * as axios from 'axios';
-import { Container, Row, Col} from 'reactstrap';
 import { Page, Button, Stack } from '@shopify/polaris';
 import Loading from './Loading';
-const QRCode = require('qrcode.react');
 
 class Part2Cards extends Component {
     constructor() {

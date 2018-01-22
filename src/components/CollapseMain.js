@@ -50,13 +50,15 @@ class CollapseMain extends Component {
                 
                 <Collapse isOpen={this.state.collapse}>
                     <Row style={{paddingTop: '1rem' }}>
-                        <Col sm="10">
+                        {/* <Col sm="2">
+                            
+                        </Col> */}
+                        <Col sm="12">
+                        <QRCode value={this.props.qrVal} /> 
                             <Collapse2 itemArray={this.props.order.lineItems} products={this.props.productsProp} orderID={this.props.order.id
                             } />
                         </Col>
-                        <Col sm="2">
-                            <QRCode value={this.props.qrVal} />
-                        </Col>
+                        
                     </Row>
                 </Collapse>   
 

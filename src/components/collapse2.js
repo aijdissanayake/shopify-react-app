@@ -51,14 +51,11 @@ class Collapse2 extends Component {
 
         return (
             <div>
-                
                 <Container>
                     <Row>
                         <Col sm="7">
-                            <Row style={{paddingBottom:50}}>
-                                <Col sm="4">
-                                    <Button primary onClick={this.fulfillOrder}>Mark as Fulfilled</Button>
-                                </Col>
+                            <Row style={{paddingBottom:50}}>                                
+                                <Button primary onClick={this.fulfillOrder}>Mark as Fulfilled</Button>                            
                             </Row>
                         </Col>
                     </Row>
