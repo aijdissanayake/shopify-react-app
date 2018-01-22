@@ -7,13 +7,6 @@ import { isUndefined } from 'util';
 class Collapse2 extends Component {
     constructor(props) {
         super(props);
-        this.fulfillOrder = this.fulfillOrder.bind(this);
-        this.state = { collapsed: true };
-    }
-
-    fulfillOrder(){
-       const url = '/shopify/shop-api/orders/' + this.props.orderID + '/fulfill';
-        alert("Order fulfilled" + url);
     }
 
     render() {
@@ -51,15 +44,6 @@ class Collapse2 extends Component {
 
         return (
             <div>
-                <Container>
-                    <Row>
-                        <Col sm="7">
-                            <Row style={{paddingBottom:50}}>                                
-                                <Button primary onClick={this.fulfillOrder}>Mark as Fulfilled</Button>                            
-                            </Row>
-                        </Col>
-                    </Row>
-                </Container>
                     <ResourceList
                         items={resourceList}
                         renderItem={(item, index) => {
