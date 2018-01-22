@@ -47,75 +47,75 @@ class Part2Cards extends Component {
             return <Loading/> ;
         }
         else{
-        // All the order details
-        var orders = this.state.orders;
-        console.log(orders);
+            // All the order details
+            var orders = this.state.orders;
+            console.log(orders);
 
-        var orderArray = [];
-        orders.forEach((order) => {
-            var items = order.line_items;
-            var lineItems = [];
-            items.forEach(item => {
-                lineItems.push({
-                    id: item.id,
-                    title: item.title,
-                    quantity: item.quantity,
-                    variant_title: item.variant_title,
-                    product_id: item.product_id
+            var orderArray = [];
+            orders.forEach((order) => {
+                var items = order.line_items;
+                var lineItems = [];
+                items.forEach(item => {
+                    lineItems.push({
+                        id: item.id,
+                        title: item.title,
+                        quantity: item.quantity,
+                        variant_title: item.variant_title,
+                        product_id: item.product_id
+                    });
+                });
+
+                const customer = order.customer.first_name + " " + order.customer.last_name;
+
+                orderArray.push({
+                    id: order.id,
+                    order_number: order.order_number,
+                    lineItems: lineItems,
+                    customer: customer,
+                    created_at: order.created_at.substring(0, 10)
                 });
             });
 
-            const customer = order.customer.first_name + " " + order.customer.last_name;
+            console.log(orderArray);
 
-            orderArray.push({
-                id: order.id,
-                order_number: order.order_number,
-                lineItems: lineItems,
-                customer: customer,
-                created_at: order.created_at.substring(0, 10)
-            });
-        });
+            return (
+                <Page title="Unfulfilled Orders" separator>
+                    <Stack 
+                        distribution="trailing"
+                    >
+                    <div style={{paddingBottom:10}}>
+                    <Stack.Item>
+                            <Button 
+                                plain
+                                size="slim" 
+                                outline  
+                                onClick={this.toggleCardType} 
+                                style={{ marginBottom: '1rem' }}
+                            >
+                                {buttonText.text}
+                            </Button>
+                        </Stack.Item>
+                    </div>
+                        
+                    </Stack>
+                    {orderArray.map((order, index) => {
+                        const qrValue = order.order_number.toString();
+                        const title = "Order ID: " + order.order_number;
 
-        console.log(orderArray);
-
-        return (
-            <Page title="Unfulfilled Orders" separator>
-                <Stack 
-                    distribution="trailing"
-                >
-                <div style={{paddingBottom:10}}>
-                <Stack.Item>
-                        <Button 
-                            plain
-                            size="slim" 
-                            outline  
-                            onClick={this.toggleCardType} 
-                            style={{ marginBottom: '1rem' }}
-                        >
-                            {buttonText.text}
-                        </Button>
-                    </Stack.Item>
-                </div>
-                    
-                </Stack>
-                {orderArray.map((order, index) => {
-                    const qrValue = order.order_number.toString();
-                    const title = "Order ID: " + order.order_number;
-
-                    if(this.state.isExpanded){
-                        return (
-                            <Uncollapsed order={order} productsProp={this.state.products} qrVal={qrValue} title={title}/>
-                        );
-                    }else{
-                        return (
-                            <CollapseMain order={order} productsProp={this.state.products} qrVal={qrValue} title={title}/>
-                        );          
-                    }
-                    
-                })}
-            </Page>
-        );
-    }
+                        if(this.state.isExpanded){
+                            return (
+                                <Uncollapsed order={order} productsProp={this.state.products} qrVal={qrValue} title={title}/>
+                            );
+                        }else{
+                            return (
+                                <CollapseMain order={order} productsProp={this.state.products} qrVal={qrValue} title={title}/>
+                            );          
+                        }
+                        
+                    })}
+                </Page>
+            );
+        }
     }
 }
 
