@@ -8,13 +8,31 @@ import Loading from './Loading';
 class Part2Cards extends Component {
     constructor() {
         super();
+        this.handleClick = this.handleClick.bind(this);
         this.toggleCardType = this.toggleCardType.bind(this);
         this.state = {
             orders: [],
+            cardStateArray: [],
             products: {},
             isOrderListLoading: true,
             isExpanded : true
         };
+    }
+
+    handleClick = (index, isClosed) => {
+  
+        if(!isClosed){
+        //reset all values in array to false -> (sets all cards' "isOpen" attributes to false)
+        this.state.cardStateArray.fill(false);
+
+        }
+
+        //set only this card's collapse attribute to true
+        var temp = this.state.cardStateArray.slice();
+        temp[index] = !(temp[index]);
+        // replace array with modified temp array
+        this.setState({cardStateArray: temp});
+    
     }
 
     toggleCardType() {
@@ -29,9 +47,16 @@ class Part2Cards extends Component {
             });
         axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/orders')
             .then(response => {
+
+                let arr = [];
+                response.data.orders.forEach((order) => {
+                    arr.push(false);
+                });
+
                 this.setState({ 
                     orders: response.data.orders,
-                    isOrderListLoading: false
+                    isOrderListLoading: false,
+                    cardStateArray: arr
                 });
             });
     }
@@ -102,11 +127,25 @@ class Part2Cards extends Component {
 
                         if(this.state.isExpanded){
                             return (
-                                <Uncollapsed order={order} productsProp={this.state.products} qrVal={qrValue} title={title}/>
+                                <Uncollapsed 
+                                    order={order} 
+                                    productsProp={this.state.products} 
+                                    qrVal={qrValue} 
+                                    title={title}
+                                
+                                />
                             );
                         }else{
                             return (
-                                <CollapseMain order={order} productsProp={this.state.products} qrVal={qrValue} title={title}/>
+                                <CollapseMain 
+                                    order={order} 
+                                    productsProp={this.state.products} 
+                                    qrVal={qrValue} 
+                                    title={title}
+                                    collapseArray={this.state.cardStateArray}
+                                    collapseArrayKey={index}
+                                    onClick={this.handleClick}
+                                />
                             );          
                         }
                         

@@ -9,15 +9,15 @@ class CollapseMain extends Component {
 
     constructor(props) {
         super(props);
+        this.onClick = this.props.onClick;
         this.fulfillOrder = this.fulfillOrder.bind(this);
-        this.toggle = this.toggle.bind(this);
         this.state = {
-            collapse: false
+            collapseArray: this.props.collapseArray
         };
     }
 
-    toggle() {
-        this.setState({ collapse: !this.state.collapse });  
+    componentWillReceiveProps(props) {
+        this.setState({ collapseArray: props.collapseArray });  
     }
 
     fulfillOrder(){
@@ -27,7 +27,8 @@ class CollapseMain extends Component {
 
     render() {
 
-        let buttonProps = this.state.collapse ? {text:"Hide Details"} : {text:"View Details"}
+        var isClosed = this.props.collapseArray[this.props.collapseArrayKey];
+        var buttonText = this.props.collapseArray[this.props.collapseArrayKey] ? {text: "see less"} : {text: "see more"};
         let cardStyle = {   backgroundColor: 'white', 
                             margin: 10, 
                             padding: 10,
@@ -53,9 +54,9 @@ class CollapseMain extends Component {
                         <Button 
                                 size="slim" 
                                 outline  
-                                onClick={this.toggle} 
+                                onClick={(e) => {this.props.onClick(this.props.collapseArrayKey, isClosed)}} 
                             >
-                                {buttonProps.text}
+                                {buttonText.text}
                         </Button>
                     </Col>                          
                 </Row>
@@ -82,7 +83,7 @@ class CollapseMain extends Component {
                     </Stack.Item>
                 </Stack> */}
                 
-                <Collapse isOpen={this.state.collapse} style={{marginTop:8 , borderTop: '2px solid rgba(0, 0, 0, .3)'}}>
+                <Collapse isOpen={this.state.collapseArray[this.props.collapseArrayKey]} style={{marginTop:8 , borderTop: '2px solid rgba(0, 0, 0, .3)'}}>
                     <Row style={{paddingTop: 5 }}>
                         <Col sm="12">
                             <Row style={{padding: 20}}>
