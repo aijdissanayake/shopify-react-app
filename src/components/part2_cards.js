@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CollapaseCards from './collapase';
 import * as axios from 'axios';
 import { Container, Row, Col} from 'reactstrap';
-import { Thumbnail, Card, Page, List, Badge } from '@shopify/polaris';
+import { Thumbnail, Card, Page, List, Badge, RadioButton, Button , ChoiceList} from '@shopify/polaris';
 import Loading from './Loading';
 
 const QRCode = require('qrcode.react');
@@ -14,7 +14,10 @@ class Part2Cards extends Component {
             orders: [],
             products: {},
             isOrderListLoading: true,
-            search: ''
+            search: '',
+            disabledOrder: false,
+            disabledCustomer: true
+
         };
     }
 
@@ -36,11 +39,18 @@ class Part2Cards extends Component {
     }
 
     updateSearch(event){
+        console.log("Nisha");
+    
         this.setState({
-            search: event.target.value.substr(0, 20)
+            search: event.target.value.substr(0, 20),
         });
     }
-            
+         
+    clickOrder(){
+        console.log(this.state.disabledCustomer);
+        this.state.disabledCustomer=true;
+        console.log(this.state.disabledCustomer);
+    }
 
     render() {
 
@@ -87,29 +97,51 @@ class Part2Cards extends Component {
         console.log(orderArray);
 
         var inputStyle={
-            marginLeft: '2%',
-            float: 'left',
-            padding: '1%',
-            fontSize: '17px',
-            marginTop: '2%',
-            borderStyle: 'dotted',
-            marginBottom:'2%'
+            marginLeft: '1%',
+            float: 'center',
+            fontSize: '14px',
+            marginTop: '1%',
+            marginBottom:'1%'
         }
 
         return (
-            <Page title="Unfulfilled Orders" separator>
+            <Page title="Untracified Orders" separator>
            
                 <div>
                     <Card>
-                        {/* <div className="searchBar"> */}
+                        <Row>
+
+
+                            <Col sm="2">
+                             <p> Search By : </p>
+                            </Col>
+                            <Col sm="2">
+                            <RadioButton
+                                label="Order ID"
+                                onClick="clickOrder"
+                            />       
+                            </Col>
+                            <Col sm="3">
+                            <RadioButton
+                              label="Customer Name"
+                              disabled= {this.state.disabledCustomer}
+
+                            />
+                                
+                            </Col>
+
+                            <Col sm="4">
                              <input
                              type="text"
-                             placeholder="Enter the order id"
                              value={this.state.search}
                              onChange={this.updateSearch.bind(this)}
                              style={inputStyle}
                              />
-                        {/* </div> */}
+                             <button onClick={this.updateSearch.bind(this)}  >
+                             Search
+                            </button>
+                            </Col>
+                         </Row>
                       </Card>
                     </div>
                
