@@ -15,8 +15,11 @@ class Part2Cards extends Component {
             products: {},
             isOrderListLoading: true,
             search: '',
+            search2: '',
             disabledOrder: false,
-            disabledCustomer: true
+            disabledCustomer: true,
+            isCheckedOrd:false,
+            isCheckedCus : false
 
         };
     }
@@ -40,16 +43,40 @@ class Part2Cards extends Component {
 
     updateSearch(event){
         console.log("Nisha");
+
+        console.log(this.state.isCheckedCus);
+        console.log(this.state.isCheckedOrd);
+
+   this.setState({
+            search: event.target.value.substr(0, 20),
+
+        });
+    } 
+   
+    clickOrder(){
+        console.log("Nisha");
     
         this.setState({
-            search: event.target.value.substr(0, 20),
+            isCheckedCus: false,
+            isCheckedOrd:true
+
         });
-    }
-         
-    clickOrder(){
-        console.log(this.state.disabledCustomer);
-        this.state.disabledCustomer=true;
-        console.log(this.state.disabledCustomer);
+        
+
+    } 
+    
+    clickCustomer(){
+        console.log("Nishaniii");
+    
+       
+        this.setState({
+            isCheckedCus: true,
+            isCheckedOrd:false
+
+        });
+
+
+    
     }
 
     render() {
@@ -59,43 +86,141 @@ class Part2Cards extends Component {
         }
         else{
         // All the order details
+        console.log(this.state.isCheckedCus);
+        console.log(this.state.isCheckedOrd);
+     
+     
+        if(this.state.isCheckedCus){
+            console.log("cus works");
 
         let orders = this.state.orders.filter(
             (order) => {
-                return order.name.indexOf(this.state.search) !== -1;
+                const customer = order.customer.first_name+ " "+order.customer.last_name;
+                const customer1 =customer.toLowerCase();
+                const customer2 =customer.toUpperCase();
+                console.log(customer1);
+                return customer1.indexOf(this.state.search) !== -1 || customer2.indexOf(this.state.search) !== -1 || customer.indexOf(this.state.search) !== -1;
             }
-         );
+        );
+                console.log(orders);
 
-       // var orders = this.state.orders;
-        console.log(orders);
+       var orderArray = [];
+       orders.forEach((order) => {
+           var items = order.line_items;
+           var lineItems = [];
+           items.forEach(item => {
+               lineItems.push({
+                   id: item.id,
+                   title: item.title,
+                   quantity: item.quantity,
+                   variant_title: item.variant_title,
+                   product_id: item.product_id
+               });
+           });
 
-        var orderArray = [];
-        orders.forEach((order) => {
-            var items = order.line_items;
-            var lineItems = [];
-            items.forEach(item => {
-                lineItems.push({
-                    id: item.id,
-                    title: item.title,
-                    quantity: item.quantity,
-                    variant_title: item.variant_title,
-                    product_id: item.product_id
-                });
-            });
+           const customer = order.customer.first_name + " " + order.customer.last_name;
 
-            const customer = order.customer.first_name + " " + order.customer.last_name;
+          
 
-            orderArray.push({
-                id: order.id,
-                order_number: order.order_number,
-                lineItems: lineItems,
-                customer: customer,
-                created_at: order.created_at.substring(0, 10)
-            });
-        });
+           orderArray.push({
+               id: order.id,
+               order_number: order.order_number,
+               lineItems: lineItems,
+               customer: customer,
+               created_at: order.created_at.substring(0, 10)
+           });
+       });
+       
+     
+            
+         
+         console.log(orderArray);
+    
+        }
 
+        else if(this.state.isCheckedOrd){
+            console.log("ord works");
+
+
+            let orders = this.state.orders.filter(
+                (order) => {
+                    return order.name.indexOf(this.state.search) !== -1 ;
+                }
+             );
+             console.log(orders);
+
+             console.log(orders);
+
+             var orderArray = [];
+             orders.forEach((order) => {
+                 var items = order.line_items;
+                 var lineItems = [];
+                 items.forEach(item => {
+                     lineItems.push({
+                         id: item.id,
+                         title: item.title,
+                         quantity: item.quantity,
+                         variant_title: item.variant_title,
+                         product_id: item.product_id
+                     });
+                 });
+      
+                 const customer = order.customer.first_name + " " + order.customer.last_name;
+      
+                
+      
+                 orderArray.push({
+                     id: order.id,
+                     order_number: order.order_number,
+                     lineItems: lineItems,
+                     customer: customer,
+                     created_at: order.created_at.substring(0, 10)
+                 });
+             });
+             
+             console.log(orderArray);
+
+              
+        }
+
+     else{
+       var orders = this.state.orders;
+      
+
+       console.log(orders);
+
+       var orderArray = [];
+       orders.forEach((order) => {
+           var items = order.line_items;
+           var lineItems = [];
+           items.forEach(item => {
+               lineItems.push({
+                   id: item.id,
+                   title: item.title,
+                   quantity: item.quantity,
+                   variant_title: item.variant_title,
+                   product_id: item.product_id
+               });
+           });
+
+           const customer = order.customer.first_name + " " + order.customer.last_name;
+
+          
+
+           orderArray.push({
+               id: order.id,
+               order_number: order.order_number,
+               lineItems: lineItems,
+               customer: customer,
+               created_at: order.created_at.substring(0, 10)
+           });
+       });
+       
+    
+     
         console.log(orderArray);
-
+    }
+    
         var inputStyle={
             marginLeft: '1%',
             float: 'center',
@@ -117,26 +242,34 @@ class Part2Cards extends Component {
                             </Col>
                             <Col sm="2">
                             <RadioButton
-                                label="Order ID"
-                                onClick="clickOrder"
+                                  
+                                  id= "id1"
+                                  label="Order ID"
+                                  checked= {this.state.isCheckedOrd}
+                                  onFocus= {this.clickOrder.bind(this)}
                             />       
-                            </Col>
+                           </Col>
                             <Col sm="3">
                             <RadioButton
                               label="Customer Name"
-                              disabled= {this.state.disabledCustomer}
+                               checked= {this.state.isCheckedCus}
+                               onFocus= {this.clickCustomer.bind(this)}
 
                             />
                                 
                             </Col>
 
                             <Col sm="4">
-                             <input
+                             
+                            <input
                              type="text"
                              value={this.state.search}
                              onChange={this.updateSearch.bind(this)}
                              style={inputStyle}
                              />
+                             
+
+
                              <button onClick={this.updateSearch.bind(this)}  >
                              Search
                             </button>
