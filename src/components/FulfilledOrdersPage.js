@@ -254,7 +254,7 @@ class FulfilledOrdersPage extends Component {
 
 
                             <Col sm="2">
-                             <p> Search By : </p>
+                             <p> Filter By : </p>
                             </Col>
                             <Col sm="2">
                             <RadioButton
@@ -283,12 +283,6 @@ class FulfilledOrdersPage extends Component {
                              onChange={this.updateSearch.bind(this)}
                              style={inputStyle}
                              />
-                             
-
-
-                             <button onClick={this.updateSearch.bind(this)}  >
-                             Search
-                            </button>
                             </Col>
                          </Row>
                       </Card>

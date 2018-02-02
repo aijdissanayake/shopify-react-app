@@ -286,7 +286,7 @@ class Part2Cards extends Component {
 
 
                             <Col sm="2">
-                             <p> Search By : </p>
+                             <p> Filter By : </p>
                             </Col>
                             <Col sm="2">
                             <RadioButton
@@ -317,10 +317,6 @@ class Part2Cards extends Component {
                              />
                              
 
-
-                             <button onClick={this.updateSearch.bind(this)}  >
-                             Search
-                            </button>
                             </Col>
                          </Row>
 
