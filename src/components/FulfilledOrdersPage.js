@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SearchInput, {createFilter} from 'react-search-input'
 import CollapaseCards from './collapase';
 import * as axios from 'axios';
-import { Page, RadioButton, Card} from '@shopify/polaris';
+import { Page, RadioButton, Card, Stack} from '@shopify/polaris';
 import FulfilledOrder from './FulfilledOrder';
 import Loading from './Loading';
 
@@ -249,43 +249,44 @@ class FulfilledOrdersPage extends Component {
             return (
                 <Page title="Tracified Orders" separator>
 
-<Card>
-                        <Row>
-
-
-                            <Col sm="2">
-                             <p> Filter By : </p>
-                            </Col>
-                            <Col sm="2">
+                    <div style={{paddingBottom:5}}>  
+                    <Stack alignment="center" >
+                        <Stack.Item>
+                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                             Filter By :
+                             </div>
+                        </Stack.Item>
+                        <Stack.Item>
                             <RadioButton
                                   
                                   id= "id1"
                                   label="Order ID"
                                   checked= {this.state.isCheckedOrd}
                                   onFocus= {this.clickOrder.bind(this)}
-                            />       
-                           </Col>
-                            <Col sm="3">
+                            />   
+                        </Stack.Item>
+                        <Stack.Item>
+                            
                             <RadioButton
                               label="Customer Name"
                                checked= {this.state.isCheckedCus}
                                onFocus= {this.clickCustomer.bind(this)}
 
                             />
-                                
-                            </Col>
-
-                            <Col sm="4">
-                             
+                        </Stack.Item>
+                        <Stack.Item>
+                            
                             <input
                              type="text"
                              value={this.state.search}
                              onChange={this.updateSearch.bind(this)}
                              style={inputStyle}
                              />
-                            </Col>
-                         </Row>
-                      </Card>
+                             
+                        </Stack.Item> 
+
+                    </Stack>
+                    </div>
                     <table className="table table-striped" style={tableStyle}>
                        
                         <thead>

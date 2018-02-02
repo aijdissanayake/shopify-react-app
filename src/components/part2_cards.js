@@ -3,7 +3,7 @@ import CollapseMain from './CollapseMain';
 import Uncollapsed from './Uncollapsed';
 import * as axios from 'axios';
 import { Container, Row, Col} from 'reactstrap';
-import { Thumbnail, Card, Page, List, Badge, Button, Stack, RadioButton } from '@shopify/polaris';
+import { Thumbnail, Card, Page, List, Badge, Button, Stack, RadioButton, TextContainer } from '@shopify/polaris';
 import Loading from './Loading';
 
 const QRCode = require('qrcode.react');
@@ -279,36 +279,35 @@ class Part2Cards extends Component {
                             </Button>
                         </Stack.Item>
                     </div>
-                        
+                      
                     </Stack>
-                     <Card>
-                        <Row>
-
-
-                            <Col sm="2">
-                             <p> Filter By : </p>
-                            </Col>
-                            <Col sm="2">
+                    <div style={{paddingBottom:5}}>  
+                    <Stack alignment="center" >
+                        <Stack.Item>
+                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                             Filter By :
+                             </div>
+                        </Stack.Item>
+                        <Stack.Item>
                             <RadioButton
                                   
                                   id= "id1"
                                   label="Order ID"
                                   checked= {this.state.isCheckedOrd}
                                   onFocus= {this.clickOrder.bind(this)}
-                            />       
-                           </Col>
-                            <Col sm="3">
+                            />   
+                        </Stack.Item>
+                        <Stack.Item>
+                            
                             <RadioButton
                               label="Customer Name"
                                checked= {this.state.isCheckedCus}
                                onFocus= {this.clickCustomer.bind(this)}
 
                             />
-                                
-                            </Col>
-
-                            <Col sm="4">
-                             
+                        </Stack.Item>
+                        <Stack.Item>
+                            
                             <input
                              type="text"
                              value={this.state.search}
@@ -316,11 +315,10 @@ class Part2Cards extends Component {
                              style={inputStyle}
                              />
                              
+                        </Stack.Item> 
 
-                            </Col>
-                         </Row>
-
-                    </Card>
+                    </Stack>
+                    </div>
                     {orderArray.map((order, index) => {
                         const qrValue = order.order_number.toString();
                         const title = "Order ID: " + order.order_number;
