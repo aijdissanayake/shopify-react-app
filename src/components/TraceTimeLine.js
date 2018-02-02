@@ -4,54 +4,129 @@ import * as axios from 'axios';
 import {
     Spinner,
     DisplayText,
-    TextStyle
+    TextStyle,
+    Card,
+    Page,
+    Avatar,
+    Heading
 } from '@shopify/polaris';
+import { Row, Col, Container } from 'reactstrap';
+
 
 class TraceTimeLine extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            OTP:"",
-            isOTPLoading: true
+            timeline: "",
+            istimelineLoading: true
         };
     }
 
     componentDidMount() {
-        axios.get("https://tracified-mock-api.herokuapp.com/Traceability_data/Saaraketha_Process/Details")
+        axios({
+            method: 'get',
+            url: 'https://tracified-mock-api.herokuapp.com/Traceability_data/otp/customer-app', headers: {
+                'Content-Type': 'text/plain;charset=utf-8',
+            },
+        })
             .then(response => {
+                let timeline = response.data[2];
                 this.setState({
-                    OTP: response.data,
-                    isOTPLoading: false
+                    timeline: timeline,
+                    istimelineLoading: false
                 });
             });
 
     }
 
     render() {
-        if (this.state.isOTPLoading) {
+
+
+        var description = {
+            padding: "2% 2% 2% 7%",
+            fontSize: 16
+        };
+
+        var line = {
+            "margin": "90% 35% 35% 35%",
+            "border-size": "0.5px",
+            "border-width": "thin",
+            "border-style": "solid",
+            "border-color": "black",
+            "height": "100px",
+            "width": "0%"
+        }
+
+
+
+        if (this.state.istimelineLoading) {
             return <Loading />;
         }
         else {
             console.log(this.props.match.params.orderID);
             console.log(this.props.match.params.itemID);
             return (
-                <div style={{ padding: '5% 0 0 37%' }}>
-                    <DisplayText size="small"                >
-                        <TextStyle variation="subdued">
-                            <b>Trace Time Line</b> for<br />
-                            Order ID : {this.props.match.params.orderID}<br />
-                            Shopify Product ID  : {this.props.match.params.itemID}<br />
-                            Should go here.<br/>
-                            OTP: {JSON.stringify(this.state.OTP)}
+                <Page title="Trace Back Timeline" separator>
+                    <DisplayText size="small">
 
-                    </TextStyle>
+                        {this.state.timeline.items.map((stage, index) => {
+                            return (
+                                <Card key={stage.stage}
+                                >
+                                    <Card.Section>
+                                        <Row>
+                                            <Col sm='1'>
+                                                <Avatar
+                                                    customer
+                                                    name="Farrah"
+                                                    source={stage.icon}
+                                                />
+                                            </Col>
+                                            <Col sm='8'>
+                                            <TextStyle variation='strong' >
+                                                {index+1}.&nbsp;{stage.title}
+
+                                            </TextStyle>
+                                            </Col>
+
+
+
+                                        </Row>
+                                        <div >
+                                            <Row>
+                                                <Col sm="1">
+                                                    <div style={line}></div>
+                                                </Col>
+                                                <Col sm="8">
+                                                    <Heading> <div > {stage.description} </div> </Heading> <br />
+
+                                                    {
+
+                                                        Object.keys(stage.data).map(function (key) {
+                                                            return <div> {stage.data[key].title}</div>;
+                                                        })
+
+                                                    }
+                                                </Col>
+                                            </Row>
+                                        </div>
+
+
+                                    </Card.Section>
+                                </Card>
+
+
+
+                            )
+                        })}
+
                     </DisplayText>
-                </div>
+                </Page>
+
             );
         }
     }
 }
-
 
 export default TraceTimeLine;

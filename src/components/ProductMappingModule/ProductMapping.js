@@ -108,7 +108,7 @@ class ProductMapping extends Component {
 
 
   componentDidMount() {
-    axios.get('/shopify/config/mapping')
+    axios.get('https://tracified-local-test.herokuapp.com/shopify/config/mapping')
       .then(response => {
         this.setState({
           initialMapping: response.data,
@@ -117,7 +117,7 @@ class ProductMapping extends Component {
         console.log(this.state.initialMapping);
 
       });
-    axios.get('/shopify/shop-api/products')
+    axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
       .then(response => {
         var products = response.data.products;
 
@@ -145,8 +145,7 @@ class ProductMapping extends Component {
 
     axios({
       method: 'get',
-      url: '/shopify/tracified/item-list',
-      headers: {
+      url: 'https://tracified-local-test.herokuapp.com/shopify/tracified/item-list',      headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
     })
@@ -201,11 +200,18 @@ class ProductMapping extends Component {
      * means it should look like " mapping: this.state.mapping"
      * make sure that state.mapping holds the current selections
      */
-    axios.post('/shopify/config/mapping', { mapping })
+    axios.post('https://tracified-local-test.herokuapp.com//shopify/config/mapping', { mapping })
       .then((result) => {
         alert("Mapping Successfully Saved!");
         console.log(result);
       });
+
+      // axios({
+      //   method: 'post',
+      //   url: 'https://tracified-local-test.herokuapp.com/shopify/tracified/item-list',      headers: {
+      //     'Content-Type': 'text/plain;charset=utf-8',
+      //   },
+      // })
 
   }
 

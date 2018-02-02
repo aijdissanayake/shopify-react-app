@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import SearchInput, {createFilter} from 'react-search-input'
+import CollapaseCards from './collapase';
 import * as axios from 'axios';
 import { Page } from '@shopify/polaris';
 import FulfilledOrder from './FulfilledOrder';
 import Loading from './Loading';
-// import autoBind from 'react-autobind';
-// import { debounce, inRange, isNil, omit } from 'lodash';
+const QRCode = require('qrcode.react');
+const KEYS_TO_FILTER = ['order.order_number']
+
 
 
 class FulfilledOrdersPage extends Component {
@@ -20,7 +23,8 @@ class FulfilledOrdersPage extends Component {
 
        
     }
-
+  
+     
     componentDidMount() {
         axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
             .then(response => {
@@ -34,6 +38,7 @@ class FulfilledOrdersPage extends Component {
                     isOrderListLoading: false
                 });
             });
+            
     }
 
    
@@ -75,6 +80,7 @@ class FulfilledOrdersPage extends Component {
                 });
 
                 const customer = order.customer.first_name + " " + order.customer.last_name;
+                console.log(order.order_number);
 
                 orderArray.push({
                     id: order.id,
@@ -100,6 +106,7 @@ class FulfilledOrdersPage extends Component {
                 backgroundColor:"white"
             }
     
+
 
             return (
                 <Page title="Fulfilled Orders" separator>

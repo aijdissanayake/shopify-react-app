@@ -10,10 +10,11 @@ import IndexItem from './components/IndexItem';
 import EditItem from './components/EditItem';
 import Tabs from './components/TabsView';
 import FulfilledOrdersPage from './components/FulfilledOrdersPage';
+import AccountVerify from './components/AccountVerify';
+import TraceTimeLine from './components/TraceTimeLine';
 import Logo from './components/tracifiedLogo';
 import ProductMapping from './components/ProductMappingModule/ProductMapping';
 import Install from './components/Install';
-import TraceTimeLine from './components/TraceTimeLine';
 import '@shopify/polaris/styles.css';
 import newTimeLine from './components/newTimeLine';
 
@@ -31,6 +32,8 @@ ReactDOM.render(
             <Route exact path='/trace/:orderID/:itemID' component={Logo} />
             <Route exact path='/trace/:orderID/:itemID' component={TraceTimeLine} />
             <Route exact path='/new-trace/:orderID/:itemID' component={newTimeLine} />
+            <Route exact path='/account-verify' component={AccountVerify} />
+            
 
         </div>
     </Router>,
