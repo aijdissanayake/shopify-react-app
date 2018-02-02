@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import SearchInput, {createFilter} from 'react-search-input'
 import CollapaseCards from './collapase';
 import * as axios from 'axios';
-import { Page } from '@shopify/polaris';
+import { Page, RadioButton, Card} from '@shopify/polaris';
 import FulfilledOrder from './FulfilledOrder';
 import Loading from './Loading';
-const QRCode = require('qrcode.react');
+
+import { Container, Row, Col} from 'reactstrap';
 const KEYS_TO_FILTER = ['order.order_number']
+const QRCode = require('qrcode.react');
 
 
 
@@ -18,7 +20,9 @@ class FulfilledOrdersPage extends Component {
             orders: [],
             products: {},
             isOrderListLoading: true,
-            search: ''
+            search: '',
+            isCheckedCus:false,
+            isCheckedOrd:true
         };
 
        
@@ -44,9 +48,41 @@ class FulfilledOrdersPage extends Component {
    
                
     updateSearch(event){
-        this.setState({
-            search: event.target.value.substr(0, 20)
+        console.log("Nisha");
+
+        console.log(this.state.isCheckedCus);
+        console.log(this.state.isCheckedOrd);
+
+   this.setState({
+            search: event.target.value.substr(0, 20),
+
         });
+    } 
+   
+    clickOrder(){
+        console.log("Nisha");
+    
+        this.setState({
+            isCheckedCus: false,
+            isCheckedOrd:true
+
+        });
+        
+
+    } 
+    
+    clickCustomer(){
+        console.log("Nishaniii");
+    
+       
+        this.setState({
+            isCheckedCus: true,
+            isCheckedOrd:false
+
+        });
+
+
+    
     }
                
     render() {
@@ -59,48 +95,150 @@ class FulfilledOrdersPage extends Component {
 
 
             // All the order details
+            console.log(this.state.isCheckedCus);
+            console.log(this.state.isCheckedOrd);
+         
+         
+            if(this.state.isCheckedCus){
+                console.log("cus works");
+    
             let orders = this.state.orders.filter(
-               (order1) => {
-                   return order1.name.indexOf(this.state.search) !== -1;
-               }
+                (order) => {
+                    const customer = order.customer.first_name+ " "+order.customer.last_name;
+                    const customer1 =customer.toLowerCase();
+                    const customer2 =customer.toUpperCase();
+                    console.log(customer1);
+                    return customer1.indexOf(this.state.search) !== -1 || customer2.indexOf(this.state.search) !== -1 || customer.indexOf(this.state.search) !== -1;
+                }
             );
-            console.log(orders);
-            var orderArray = [];
-            orders.forEach((order) => {
-                var items = order.line_items;
-                var lineItems = [];
-                items.forEach(item => {
-                    lineItems.push({
-                        id: item.id,
-                        title: item.title,
-                        quantity: item.quantity,
-                        variant_title: item.variant_title,
-                        product_id: item.product_id
+                    console.log(orders);
+    
+           var orderArray = [];
+           orders.forEach((order) => {
+               var items = order.line_items;
+               var lineItems = [];
+               items.forEach(item => {
+                   lineItems.push({
+                       id: item.id,
+                       title: item.title,
+                       quantity: item.quantity,
+                       variant_title: item.variant_title,
+                       product_id: item.product_id
+                   });
+               });
+    
+               const customer = order.customer.first_name + " " + order.customer.last_name;
+    
+              
+    
+               orderArray.push({
+                   id: order.id,
+                   order_number: order.order_number,
+                   lineItems: lineItems,
+                   customer: customer,
+                   created_at: order.created_at.substring(0, 10)
+               });
+           });
+           
+         
+                
+             
+             console.log(orderArray);
+        
+            }
+    
+            else if(this.state.isCheckedOrd){
+                console.log("ord works");
+    
+    
+                let orders = this.state.orders.filter(
+                    (order) => {
+                        return order.name.indexOf(this.state.search) !== -1 ;
+                    }
+                 );
+                 console.log(orders);
+    
+                 console.log(orders);
+    
+                 var orderArray = [];
+                 orders.forEach((order) => {
+                     var items = order.line_items;
+                     var lineItems = [];
+                     items.forEach(item => {
+                         lineItems.push({
+                             id: item.id,
+                             title: item.title,
+                             quantity: item.quantity,
+                             variant_title: item.variant_title,
+                             product_id: item.product_id
+                         });
+                     });
+          
+                     const customer = order.customer.first_name + " " + order.customer.last_name;
+          
+                    
+          
+                     orderArray.push({
+                         id: order.id,
+                         order_number: order.order_number,
+                         lineItems: lineItems,
+                         customer: customer,
+                         created_at: order.created_at.substring(0, 10)
+                     });
+                 });
+                 
+                 console.log(orderArray);
+    
+                  
+            }
+
+            else{
+                var orders = this.state.orders;
+               
+         
+                console.log(orders);
+         
+                var orderArray = [];
+                orders.forEach((order) => {
+                    var items = order.line_items;
+                    var lineItems = [];
+                    items.forEach(item => {
+                        lineItems.push({
+                            id: item.id,
+                            title: item.title,
+                            quantity: item.quantity,
+                            variant_title: item.variant_title,
+                            product_id: item.product_id
+                        });
+                    });
+         
+                    const customer = order.customer.first_name + " " + order.customer.last_name;
+         
+                   
+         
+                    orderArray.push({
+                        id: order.id,
+                        order_number: order.order_number,
+                        lineItems: lineItems,
+                        customer: customer,
+                        created_at: order.created_at.substring(0, 10)
                     });
                 });
-
-                const customer = order.customer.first_name + " " + order.customer.last_name;
-                console.log(order.order_number);
-
-                orderArray.push({
-                    id: order.id,
-                    order_number: order.order_number,
-                    lineItems: lineItems,
-                    customer: customer,
-                    created_at: order.created_at.substring(0, 10)
-                });
-            });
+                
+             
+              
+                 console.log(orderArray);
+             }
+             
            
-            var inputStyle1={
-                marginLeft: '2%',
-                float: 'left',
-                padding: '1%',
-                fontSize: '17px',
-                marginTop: '2%',
-                borderStyle: 'dotted',
-                marginBottom:'2%',
-                height:'45px'
+            var inputStyle={
+                marginLeft: '1%',
+                float: 'center',
+                fontSize: '14px',
+                marginTop: '1%',
+                marginBottom:'1%'
             }
+    
 
             var tableStyle={
                 backgroundColor:"white"
@@ -109,18 +247,56 @@ class FulfilledOrdersPage extends Component {
 
 
             return (
-                <Page title="Fulfilled Orders" separator>
+                <Page title="Tracified Orders" separator>
+
+<Card>
+                        <Row>
+
+
+                            <Col sm="2">
+                             <p> Search By : </p>
+                            </Col>
+                            <Col sm="2">
+                            <RadioButton
+                                  
+                                  id= "id1"
+                                  label="Order ID"
+                                  checked= {this.state.isCheckedOrd}
+                                  onFocus= {this.clickOrder.bind(this)}
+                            />       
+                           </Col>
+                            <Col sm="3">
+                            <RadioButton
+                              label="Customer Name"
+                               checked= {this.state.isCheckedCus}
+                               onFocus= {this.clickCustomer.bind(this)}
+
+                            />
+                                
+                            </Col>
+
+                            <Col sm="4">
+                             
+                            <input
+                             type="text"
+                             value={this.state.search}
+                             onChange={this.updateSearch.bind(this)}
+                             style={inputStyle}
+                             />
+                             
+
+
+                             <button onClick={this.updateSearch.bind(this)}  >
+                             Search
+                            </button>
+                            </Col>
+                         </Row>
+                      </Card>
                     <table className="table table-striped" style={tableStyle}>
                        
                         <thead>
                             <tr>
-                            <input
-                             type="text"
-                             placeholder="Enter the order id"
-                             value={this.state.search}
-                             onChange={this.updateSearch.bind(this)}
-                             style={inputStyle1}
-                             />
+                            
 
                             </tr>
                             <tr>
