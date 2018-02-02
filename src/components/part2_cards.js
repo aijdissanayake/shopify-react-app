@@ -19,7 +19,9 @@ class Part2Cards extends Component {
             products: {},
             isOrderListLoading: true,
             search: '',
-            isExpanded : true
+            isExpanded : true,
+            isCheckedCus:false,
+            isCheckedOrd:true
         };
     }
 
