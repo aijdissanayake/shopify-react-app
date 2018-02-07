@@ -70,14 +70,12 @@ class CollapaseCard extends Component {
             <div>
                 
                 <Container>
-                <Collapse isOpen={this.state.collapsed}>
+                {/* <Collapse isOpen={this.state.collapsed}> */}
                 <Stack alignment="baseline" wrap={false}> {resourceThumbnails} </Stack>
-                </Collapse>
+                {/* </Collapse> */}
                     <Row>
                         <Col sm="7">
                             <Row>
-                                {/*<Col sm="7">
-                    <Row> */}
                                 <Col sm="4">
                                     <Button primary onClick={this.toggleCollapse} >{this.state.collapsed ? " Show Order Items " : " Hide Order Items "}</Button>
                                 </Col>
@@ -86,8 +84,6 @@ class CollapaseCard extends Component {
                                 </Col>
                             </Row>
                         </Col>
-                        {/*</Row>
-                    </Col> */}
                     </Row>
                 </Container>
                 <Collapse isOpen={!this.state.collapsed}>

@@ -1,22 +1,49 @@
 import React, { Component } from 'react';
-import CollapaseCards from './collapase';
+import CollapseMain from './CollapseMain';
+import Uncollapsed from './Uncollapsed';
 import * as axios from 'axios';
 import { Container, Row, Col} from 'reactstrap';
-import { Thumbnail, Card, Page, List } from '@shopify/polaris';
+import { Thumbnail, Card, Page, List, Badge, Button, Stack, RadioButton, TextContainer } from '@shopify/polaris';
 import Loading from './Loading';
+
 const QRCode = require('qrcode.react');
 
 class Part2Cards extends Component {
     constructor() {
         super();
+        this.handleClick = this.handleClick.bind(this);
+        this.toggleCardType = this.toggleCardType.bind(this);
         this.state = {
             orders: [],
+            cardStateArray: [],
             products: {},
-            isOrderListLoading: true
+            isOrderListLoading: true,
+            search: '',
+            isExpanded : true,
+            isCheckedCus:false,
+            isCheckedOrd:true
         };
     }
 
+    handleClick = (index, isClosed) => {
+  
+        if(!isClosed){
+        //reset all values in array to false -> (sets all cards' "isOpen" attributes to false)
+        this.state.cardStateArray.fill(false);
 
+        }
+
+        //set only this card's collapse attribute to true
+        var temp = this.state.cardStateArray.slice();
+        temp[index] = !(temp[index]);
+        // replace array with modified temp array
+        this.setState({cardStateArray: temp});
+    
+    }
+
+    toggleCardType() {
+        this.setState({ isExpanded: !this.state.isExpanded });  
+    }
 
     componentDidMount() {
         axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
@@ -26,80 +53,304 @@ class Part2Cards extends Component {
             });
         axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/orders')
             .then(response => {
+
+                let arr = [];
+                response.data.orders.forEach((order) => {
+                    arr.push(false);
+                });
+
                 this.setState({ 
                     orders: response.data.orders,
-                    isOrderListLoading: false
+                    isOrderListLoading: false,
+                    cardStateArray: arr
                 });
             });
     }
 
+    updateSearch(event){
+        console.log("Nisha");
+
+        console.log(this.state.isCheckedCus);
+        console.log(this.state.isCheckedOrd);
+
+   this.setState({
+            search: event.target.value.substr(0, 20),
+
+        });
+    } 
+   
+    clickOrder(){
+        console.log("Nisha");
+    
+        this.setState({
+            isCheckedCus: false,
+            isCheckedOrd:true
+
+        });
+        
+
+    } 
+    
+    clickCustomer(){
+        console.log("Nishaniii");
+    
+       
+        this.setState({
+            isCheckedCus: true,
+            isCheckedOrd:false
+
+        });
+
+
+    
+    } 
 
     render() {
+
+        let buttonText = this.state.isExpanded ? {text:"Switch to collapsed view"} : {text:"Switch to expanded view"}
 
         if(this.state.isOrderListLoading){
             return <Loading/> ;
         }
         else{
         // All the order details
-        var orders = this.state.orders;
-        console.log(orders);
 
-        var orderArray = [];
-        orders.forEach((order) => {
-            var items = order.line_items;
-            var lineItems = [];
-            items.forEach(item => {
-                lineItems.push({
-                    id: item.id,
-                    title: item.title,
-                    quantity: item.quantity,
-                    variant_title: item.variant_title,
-                    product_id: item.product_id
+        
+       // var orders = this.state.orders;
+       
+       
+
+       console.log(this.state.isCheckedCus);
+       console.log(this.state.isCheckedOrd);
+    
+    
+       if(this.state.isCheckedCus){
+           console.log("cus works");
+
+       let orders = this.state.orders.filter(
+           (order) => {
+               const customer = order.customer.first_name+ " "+order.customer.last_name;
+               const customer1 =customer.toLowerCase();
+               const customer2 =customer.toUpperCase();
+               console.log(customer1);
+               return customer1.indexOf(this.state.search) !== -1 || customer2.indexOf(this.state.search) !== -1 || customer.indexOf(this.state.search) !== -1;
+           }
+       );
+               console.log(orders);
+
+      var orderArray = [];
+      orders.forEach((order) => {
+          var items = order.line_items;
+          var lineItems = [];
+          items.forEach(item => {
+              lineItems.push({
+                  id: item.id,
+                  title: item.title,
+                  quantity: item.quantity,
+                  variant_title: item.variant_title,
+                  product_id: item.product_id
+              });
+          });
+
+          const customer = order.customer.first_name + " " + order.customer.last_name;
+
+         
+
+          orderArray.push({
+              id: order.id,
+              order_number: order.order_number,
+              lineItems: lineItems,
+              customer: customer,
+              created_at: order.created_at.substring(0, 10)
+          });
+      });
+      
+    
+           
+        
+        console.log(orderArray);
+   
+       }
+
+       else if(this.state.isCheckedOrd){
+           console.log("ord works");
+
+
+           let orders = this.state.orders.filter(
+               (order) => {
+                   return order.name.indexOf(this.state.search) !== -1 ;
+               }
+            );
+            console.log(orders);
+
+            console.log(orders);
+
+            var orderArray = [];
+            orders.forEach((order) => {
+                var items = order.line_items;
+                var lineItems = [];
+                items.forEach(item => {
+                    lineItems.push({
+                        id: item.id,
+                        title: item.title,
+                        quantity: item.quantity,
+                        variant_title: item.variant_title,
+                        product_id: item.product_id
+                    });
+                });
+     
+                const customer = order.customer.first_name + " " + order.customer.last_name;
+     
+               
+     
+                orderArray.push({
+                    id: order.id,
+                    order_number: order.order_number,
+                    lineItems: lineItems,
+                    customer: customer,
+                    created_at: order.created_at.substring(0, 10)
                 });
             });
+            
+            console.log(orderArray);
 
-            const customer = order.customer.first_name + " " + order.customer.last_name;
+             
+       }
 
-            orderArray.push({
-                id: order.id,
-                order_number: order.order_number,
-                lineItems: lineItems,
-                customer: customer,
-                created_at: order.created_at.substring(0, 10)
-            });
-        });
+    else{
+      var orders = this.state.orders;
+     
 
-        console.log(orderArray);
+      console.log(orders);
 
+      var orderArray = [];
+      orders.forEach((order) => {
+          var items = order.line_items;
+          var lineItems = [];
+          items.forEach(item => {
+              lineItems.push({
+                  id: item.id,
+                  title: item.title,
+                  quantity: item.quantity,
+                  variant_title: item.variant_title,
+                  product_id: item.product_id
+              });
+          });
+
+          const customer = order.customer.first_name + " " + order.customer.last_name;
+
+         
+
+          orderArray.push({
+              id: order.id,
+              order_number: order.order_number,
+              lineItems: lineItems,
+              customer: customer,
+              created_at: order.created_at.substring(0, 10)
+          });
+      });
+      
+   
+    
+       console.log(orderArray);
+   }
+
+          var inputStyle={
+            marginLeft: '1%',
+            float: 'center',
+            fontSize: '14px',
+            marginTop: '1%',
+            marginBottom:'1%'
+        }
         return (
-            <Page title="Unfulfilled Orders" separator>
+            <Page title="Untracified Orders" separator>
+                     <Stack 
+                        distribution="trailing"
+                    >
 
-                {orderArray.map((order, index) => {
-                    const qrValue = order.order_number.toString();
-                    const title = "Order ID: " + order.order_number;
-                    return (
-                        <Card key={order.order_number} title={title} sectioned subdued={false}>
-                            <Row>
-                                <Col sm="10">                                    
-                                    <List type="bullet">
-                                        <List.Item>Customer  : {order.customer}</List.Item>
-                                        <List.Item>Created At: {order.created_at}</List.Item>
-                                    </List>
-                                </Col>
-                                <Col sm="2">
-                                    <QRCode value={qrValue} />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col sm="12">
-                                    <CollapaseCards itemArray={order.lineItems} products={this.state.products} orderID={order.id
-                                    } />
-                                </Col>
-                            </Row>
-                        </Card>
-                    )
-                })}
-            </Page>
+                    <div style={{paddingBottom:10}}>
+                    <Stack.Item>
+                            <Button 
+                                plain
+                                size="slim" 
+                                outline  
+                                onClick={this.toggleCardType} 
+                                style={{ marginBottom: '1rem' }}
+                            >
+                                {buttonText.text}
+                            </Button>
+                        </Stack.Item>
+                    </div>
+                      
+                    </Stack>
+                    <div style={{paddingBottom:5}}>  
+                    <Stack alignment="center" >
+                        <Stack.Item>
+                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                             Filter By :
+                             </div>
+                        </Stack.Item>
+                        <Stack.Item>
+                            <RadioButton
+                                  
+                                  id= "id1"
+                                  label="Order ID"
+                                  checked= {this.state.isCheckedOrd}
+                                  onFocus= {this.clickOrder.bind(this)}
+                            />   
+                        </Stack.Item>
+                        <Stack.Item>
+                            
+                            <RadioButton
+                              label="Customer Name"
+                               checked= {this.state.isCheckedCus}
+                               onFocus= {this.clickCustomer.bind(this)}
+
+                            />
+                        </Stack.Item>
+                        <Stack.Item>
+                            
+                            <input
+                             type="text"
+                             value={this.state.search}
+                             onChange={this.updateSearch.bind(this)}
+                             style={inputStyle}
+                             />
+                             
+                        </Stack.Item> 
+
+                    </Stack>
+                    </div>
+                    {orderArray.map((order, index) => {
+                        const qrValue = order.order_number.toString();
+                        const title = "Order ID: " + order.order_number;
+
+                        if(this.state.isExpanded){
+                            return (
+                                <Uncollapsed 
+                                    order={order} 
+                                    productsProp={this.state.products} 
+                                    qrVal={qrValue} 
+                                    title={title}
+                                
+                                />
+                            );
+                        }else{
+                            return (
+                                <CollapseMain 
+                                    order={order} 
+                                    productsProp={this.state.products} 
+                                    qrVal={qrValue} 
+                                    title={title}
+                                    collapseArray={this.state.cardStateArray}
+                                    collapseArrayKey={index}
+                                    onClick={this.handleClick}
+                                />
+                            );          
+                        }
+                        
+                    })}
+                </Page>
         );
     }
     }
