@@ -30,12 +30,12 @@ class FulfilledOrdersPage extends Component {
   
      
     componentDidMount() {
-        axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
+        axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/products')
             .then(response => {
                 const products = response.data.products;
                 this.setState({ products: response.data.products });
             });
-        axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/fulfilled-orders')
+        axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/fulfilled-orders')
             .then(response => {
                 this.setState({
                     orders: response.data.fulfilledOrders,
