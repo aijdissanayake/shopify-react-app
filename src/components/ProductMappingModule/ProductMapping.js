@@ -151,14 +151,23 @@ class ProductMapping extends Component {
     })
       .then(response_ => {
         this.setState({ tracedata: response_.data });
+        console.log("mapping response sttus : " + response_.status);
+        console.log("mapping response data : " + JSON.stringify(response_.data));
 
+        let responseTxt = "";
+        for ( const obj of response_.data) {
+          const itemname = obj.itemName.replace(/\s/g, "-");
+          responseTxt += obj.itemID + " : " + itemname + " , ";
+      }
+
+      this.setState({ tracedata: responseTxt });
         if (response_.status == 200) {
           this.setState({ isTraceListLoading: false });
 
         }
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("error gettin mapping list :" + error);
       })
   }
 
