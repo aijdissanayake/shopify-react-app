@@ -1,0 +1,44 @@
+.saveBtn{
+    background-color: transparent;
+    z-index: initial;
+    position: fixed;
+    width: 100%;
+    padding-bottom: 1%;
+    display: inline-block;
+}
+
+.product-Mapping form{
+    margin-top: 3%;
+/*     padding-top: 5%; */
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll;
+    height: 90%;
+}
+
+.checkPolaris,.selectPolaris{
+    z-index: -10;
+}
+
+.Polaris-Card__Header h2{
+    margin-top: 1.5%;
+    font-weight: bolder !important;
+    display: inline-block;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%
+}
+
+.table.table-striped thread tr{
+    position: fixed;
+    width: 100% !important;
+/*     padding-left: 10% */
+}
+
+.saveBtn .col-sm-10 .Polaris-Card{
+    width: 150% !important;
+    padding-bottom: 5%;
+}
