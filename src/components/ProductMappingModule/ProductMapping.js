@@ -1,6 +1,7 @@
 // ProductMapping.js
 
 import React, { Component } from 'react';
+import Sticky from 'react-sticky-el';
 import ReactDOM from 'react-dom';
 import ProductMappingService from './ProductMappingService';
 import axios from 'axios';
@@ -247,6 +248,7 @@ class ProductMapping extends Component {
           <br />
           <form>
             <table className="table table-striped">
+              <Sticky>
               <thead>
                 <tr>
                   <td >Product Name</td>
@@ -255,6 +257,7 @@ class ProductMapping extends Component {
                   <td >Permission</td>
                 </tr>
               </thead>
+              </Sticky>
               <tbody>
 
                 {this.tabRow()}
