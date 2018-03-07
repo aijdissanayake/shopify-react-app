@@ -1,44 +1,33 @@
-.saveBtn{
-    background-color: transparent;
-    z-index: initial;
-    position: fixed;
-    width: 100%;
+
+.tblHeaders .col-sm-3{
+    padding-left: 4% !important;
+    width: 15% !important;
     padding-bottom: 1%;
-    display: inline-block;
+    font-weight: bold;
 }
 
-.product-Mapping form{
-    margin-top: 3%;
-/*     padding-top: 5%; */
-    position: fixed;
-    width: 100%;
-    overflow-y: scroll;
-    height: 90%;
+.Pid{
+    margin-left: 20%;
 }
 
-.checkPolaris,.selectPolaris{
-    z-index: -10;
+.Permission{
+    margin-left: 4%;
 }
 
-.Polaris-Card__Header h2{
-    margin-top: 1.5%;
-    font-weight: bolder !important;
-    display: inline-block;
+.Polaris-Card{
+    z-index: 20;
+    width: 340%;
 }
 
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 100%
+.MappingDetails{
+    padding-top: 1%;
+    padding-left: 4%;
+    font-size: 150% !important;
 }
+/* .Polaris-Select .Polaris-Select__Input , .Polaris-Select__Backdrop{
+    z-index: -11
+} */
 
-.table.table-striped thread tr{
-    position: fixed;
-    width: 100% !important;
-/*     padding-left: 10% */
-}
-
-.saveBtn .col-sm-10 .Polaris-Card{
-    width: 150% !important;
-    padding-bottom: 5%;
+.sticky{
+    z-index: 200 !important;
 }
