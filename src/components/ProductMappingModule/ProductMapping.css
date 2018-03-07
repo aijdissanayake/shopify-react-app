@@ -4,7 +4,7 @@
 }
 
 .tblHeaders .col-sm-3,.tblHeaders .col-sm-2,tblHeaders .col-sm-5{
-    padding-left: 1% !important;
+     padding-left: 1% !important; 
 /*     width: 25% !important; */
     padding-bottom: 1%;
     font-weight: bold;
@@ -18,7 +18,7 @@
 .Polaris-Card{
     position: fixed;
     z-index: 50;
-    width: 247%;
+    width: 250%;
     white-space: nowrap; 
 /*     width: 0em;  */
     overflow: hidden;
