@@ -257,7 +257,7 @@ class ProductMapping extends Component {
               <Sticky>
 
               <thead>
-                <div className="cardWrapper" style={navStyle}>
+                <Row className="cardWrapper" style={navStyle}>
                 <Card>
 
                 {/*<Row>                  
@@ -281,10 +281,10 @@ class ProductMapping extends Component {
                   </tr>
                 <tr >
                   <Row className="tblHeaders">
-                  <Col sm="3" className="pName">Product Name</Col>
-                  <Col sm="3" className="Pid">Product Item ID</Col>
+                  <Col sm="5" className="pName">Product Name</Col>
+                  <Col sm="2" className="Pid">Product Item ID</Col>
                   <Col sm="3" className="tTitle">Tracified Item title</Col>
-                  <Col sm="3" className="Permission">Permission</Col>
+                  <Col sm="2" className="Permission">Permission</Col>
                 </Row>
                 </tr>
                 
@@ -295,7 +295,7 @@ class ProductMapping extends Component {
                   <Col sm="3" className="Permission">Permission</Col>
                 </Row>*/}
                 </Card>
-                </div>
+                </Row>
               </thead>
               </Sticky>
                 <br/><br/><br/><br/><br/><br/><br/>

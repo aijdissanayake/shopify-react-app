@@ -3,29 +3,28 @@
     width: 200% !important;
 }
 
-.tblHeaders .col-sm-3{
-    padding-left: 2% !important;
-    width: 25% !important;
+.tblHeaders .col-sm-3,.tblHeaders .col-sm-2,tblHeaders .col-sm-5{
+    padding-left: 1% !important;
+/*     width: 25% !important; */
     padding-bottom: 1%;
     font-weight: bold;
 }
 
-.Pid{
-    margin-left: 15%;
+.pName,.Pid,.tTitle,.Permission{
+    font-weight: bold;
 }
 
-.tTitle{
-    margin-left: -5%;
-}
-
-.Permission{
-    margin-left: -10%;
-}
 
 .Polaris-Card{
     position: fixed;
     z-index: 50;
     width: 247%;
+    white-space: nowrap; 
+/*     width: 0em;  */
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis; 
+    padding-left: 10%;
 }
 
 .MappingDetails{
@@ -38,6 +37,10 @@
 
 .saveBtn .Polaris-Button--primary{
     margin-left: -40% !important;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis; 
+    white-space: nowrap; 
 }
 
 /* .Polaris-Button--primary{ */
