@@ -251,7 +251,7 @@ class ProductMapping extends Component {
         {/*<Sticky>*/}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.js"></script>
         
-          <form>
+          {/*<form>*/}
             <table className="table table-striped">
               
               <Sticky>
@@ -260,38 +260,50 @@ class ProductMapping extends Component {
                 <div className="cardWrapper" style={navStyle}>
                 <Card>
 
-                <Row>                  
+                {/*<Row>                  
                   <Col sm="10">
                     <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
                   </Col>
                   <Col sm="2">
                     <Button primary onClick={this.onSubmit}>Save</Button>
-                  </Col>
-                </Row>
+                  </Col>*/}
+                {/*</Row>*/}
 
-                <br />
-                {/*<tr className="tblHeaders">
-                  <td >Product Name</td>
-                  <td >Product Item ID</td>
-                  <td >Tracified Item title</td>
-                  <td >Permission</td>
-                </tr>*/}
-                <Row className="tblHeaders">
+                {/*<br />*/}
+                
+                  <tr>
+                    <td>
+                      <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
+                    </td>
+                    <td className="saveBtn">
+                      <Button primary onClick={this.onSubmit}>Save</Button>
+                    </td>
+                  </tr>
+                <tr >
+                  <Row className="tblHeaders">
                   <Col sm="3" className="pName">Product Name</Col>
                   <Col sm="3" className="Pid">Product Item ID</Col>
                   <Col sm="3" className="tTitle">Tracified Item title</Col>
                   <Col sm="3" className="Permission">Permission</Col>
                 </Row>
+                </tr>
+                
+                {/*<Row className="tblHeaders">
+                  <Col sm="3" className="pName">Product Name</Col>
+                  <Col sm="3" className="Pid">Product Item ID</Col>
+                  <Col sm="3" className="tTitle">Tracified Item title</Col>
+                  <Col sm="3" className="Permission">Permission</Col>
+                </Row>*/}
                 </Card>
                 </div>
               </thead>
               </Sticky>
-
+                <br/><br/><br/><br/><br/><br/><br/>
               <tbody>
                 {this.tabRow()}
               </tbody>
             </table>            
-          </form>
+          {/*</form>*/}
         {/*</Card>*/}
         {/*</Sticky>*/}
       </div>
