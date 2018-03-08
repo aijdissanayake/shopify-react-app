@@ -17,19 +17,29 @@ class CollapaseCard extends Component {
     }
 
     fulfillOrder(){
-       const url = '/shopify/shop-api/orders/' + this.props.orderID + '/fulfill';
-        alert("Order fulfilled" + url);
+        const url = '/shopify/shop-api/orders/' + this.props.orderID + '/tracify';
+        axios.get(url)
+        .then(response => {
+            alert("Added tracified details!");
+            this.props.resetOrders();
+        }).catch((err) => {
+                console.log(err);
+            });
     }
 
     render() {
-
+        var markTracifiedStyle={
+            paddingLeft: '15%',
+            // width: '25%',
+            marginTop: '-4%',
+            position:'fixed'
+        }
         console.log("collapse products");
-        console.log(this.props.products);
-        console.log(typeof this.props.products);
         let resourceThumbnails = [];
         let resourceList = this.props.itemArray.map((resItem, index) => {
             let productImage = "no/image";
             if (!isUndefined(this.props.products.length) && !isUndefined(this.props.products)) {
+                console.log(this.props.products.length);
                 const product = this.props.products.filter((product) => {
                     return product.id == resItem.product_id
                 });
@@ -38,7 +48,8 @@ class CollapaseCard extends Component {
                     productImage = product[0].images[0].src;
                     if(resourceThumbnails.length < 5){
                         resourceThumbnails.push(                        
-                            <Thumbnail key={resourceThumbnails.length}
+                            <Thumbnail
+                            key={resourceThumbnails.length}
                             source={product[0].images[0].src}
                             alt={" Image"}
                         />
@@ -47,6 +58,7 @@ class CollapaseCard extends Component {
                     else if (resourceThumbnails.length == 5) {
                         resourceThumbnails.push(<p key={resourceThumbnails.length}><b>. . .</b></p>);                            
                     }
+                    
                 }
             }
 
@@ -64,23 +76,29 @@ class CollapaseCard extends Component {
             return (
                 resource
             );
+
+            
         });
+
+       
 
         return (
             <div>
-                
                 <Container>
                 {/* <Collapse isOpen={this.state.collapsed}> */}
                 <Stack alignment="baseline" wrap={false}> {resourceThumbnails} </Stack>
                 {/* </Collapse> */}
                     <Row>
-                        <Col sm="7">
+                        <Col sm="12">
+                        {/*<Col sm="7">*/}
                             <Row>
                                 <Col sm="4">
-                                    <Button primary onClick={this.toggleCollapse} >{this.state.collapsed ? " Show Order Items " : " Hide Order Items "}</Button>
+                                    <Button plain onClick={this.toggleCollapse} >{this.state.collapsed ? " Show Items \u25BC" : " Hide Items \u25B2"}</Button>
                                 </Col>
-                                <Col sm="4">
-                                    <Button primary onClick={this.fulfillOrder}>Mark as Fulfilled</Button>
+                                <Col sm="2">
+                                </ Col>
+                                <Col sm="6" style={markTracifiedStyle}>
+                                    <Button primary onClick={this.fulfillOrder} >Mark as Tracified</Button>
                                 </Col>
                             </Row>
                         </Col>
