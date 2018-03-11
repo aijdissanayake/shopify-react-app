@@ -1,6 +1,7 @@
 // ProductMapping.js
 
 import React, { Component } from 'react';
+import Sticky from 'react-sticky-el';
 import ReactDOM from 'react-dom';
 import ProductMappingService from './ProductMappingService';
 import axios from 'axios';
@@ -28,7 +29,8 @@ import {
   TextStyle 
 } from '@shopify/polaris';
 import '@shopify/polaris/styles.css';
-import './AppMP.css'
+import './AppMP.css';
+import './ProductMapping.css';
 import { setTimeout } from 'timers';
 // import Spinner from '../../lib/components/Spinner';
 import { request } from 'http';
@@ -229,6 +231,11 @@ class ProductMapping extends Component {
   render() {
     const { productName, tracifiedItemID, tracifiedItemtitle, permission, isTraceListLoading, isProductListLoading } = this.state;
 
+    var navStyle={
+      // width: '340%',
+      zindex: '20'
+    }
+
     if (isTraceListLoading || isProductListLoading) {
       return (
               <Loading/>
@@ -241,35 +248,64 @@ class ProductMapping extends Component {
 
     return (
       <div class="loader" id="productmapping">
-
+        {/*<Sticky>*/}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.js"></script>
-        <Card title="Product Mapping Details">
-          <br />
-          <form>
+        
+          {/*<form>*/}
             <table className="table table-striped">
+              
+              <Sticky>
+
               <thead>
-                <tr>
-                  <td >Product Name</td>
-                  <td >Product Item ID</td>
-                  <td >Tracified Item title</td>
-                  <td >Permission</td>
+                <Row className="cardWrapper" style={navStyle}>
+                <Card>
+
+                {/*<Row>                  
+                  <Col sm="10">
+                    <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
+                  </Col>
+                  <Col sm="2">
+                    <Button primary onClick={this.onSubmit}>Save</Button>
+                  </Col>*/}
+                {/*</Row>*/}
+
+                {/*<br />*/}
+                
+                  <tr>
+                    <td>
+                      <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
+                    </td>
+                    <td className="saveBtn">
+                      <Button primary onClick={this.onSubmit}>Save</Button>
+                    </td>
+                  </tr>
+                <tr >
+                  <Row className="tblHeaders">
+                  <Col sm="5" className="pName">Product Name</Col>
+                  <Col sm="2" className="Pid">Product Item ID</Col>
+                  <Col sm="3" className="tTitle">Tracified Item title</Col>
+                  <Col sm="2" className="Permission">Permission</Col>
+                </Row>
                 </tr>
+                
+                {/*<Row className="tblHeaders">
+                  <Col sm="3" className="pName">Product Name</Col>
+                  <Col sm="3" className="Pid">Product Item ID</Col>
+                  <Col sm="3" className="tTitle">Tracified Item title</Col>
+                  <Col sm="3" className="Permission">Permission</Col>
+                </Row>*/}
+                </Card>
+                </Row>
               </thead>
+              </Sticky>
+                <br/><br/><br/><br/><br/><br/><br/>
               <tbody>
-
                 {this.tabRow()}
-
               </tbody>
-            </table>
-            <Row>
-              <Col sm="10">
-              </Col>
-              <Col sm="2">
-                <Button primary onClick={this.onSubmit}>Save</Button>
-              </Col>
-            </Row>
-          </form>
-        </Card>
+            </table>            
+          {/*</form>*/}
+        {/*</Card>*/}
+        {/*</Sticky>*/}
       </div>
     );
     <ProductMapping /> , document.getElementById('productmapping')
