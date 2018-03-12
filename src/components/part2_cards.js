@@ -264,7 +264,7 @@ class Part2Cards extends Component {
             marginLeft: '1%',
             float: 'center',
             fontSize: '14px',
-            marginTop: '1%',
+            marginTop: '-4%',
             marginBottom:'1%'
         }
         return (
