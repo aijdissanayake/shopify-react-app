@@ -236,7 +236,7 @@ class FulfilledOrdersPage extends Component {
                 float: 'center',
                 fontSize: '14px',
                 marginTop: '1%',
-                marginBottom:'1%'
+                marginBottom:'2%'
             }
     
 
@@ -256,7 +256,7 @@ class FulfilledOrdersPage extends Component {
                     <div className="filterWrapper" style={{marginBottom:5}}>  
                     <Stack alignment="center" >
                         <Stack.Item>
-                            <div style={{padding:"0.4rem", marginBottom:5, fontWeight:"bold",fontSize:"140%"}}>
+                            <div style={{padding:"0.4rem", marginBottom:5, fontWeight:"bold",fontSize:"140%", paddingBottom:'9.5%'}}>
                              Filter By :
                              </div>
                         </Stack.Item>
