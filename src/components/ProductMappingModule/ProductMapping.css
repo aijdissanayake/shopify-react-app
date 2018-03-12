@@ -51,3 +51,9 @@
 .sticky{
     z-index:50 !important; ;
 }
+
+.table.table-striped{
+    width: 70% !important;
+    margin-left: 15%;
+}
+
