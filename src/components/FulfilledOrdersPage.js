@@ -244,18 +244,19 @@ class FulfilledOrdersPage extends Component {
                 backgroundColor:"white"
             }
     
-            var filterStyle={
-                paddingBottom:5,
-                marginTop:'-5%',
+            var filterByStyle={
+                padding:"0.4rem", 
+                marginBottom:5,
+                fontWeight:"bold",
             }
 
             return (
                 <Page title="Tracified Orders" separator>
 
-                    <div className="filterWrapper" style={filterStyle}>  
+                    <div className="filterWrapper" style={{marginBottom:5}}>  
                     <Stack alignment="center" >
                         <Stack.Item>
-                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                            <div style={{padding:"0.4rem", marginBottom:5, fontWeight:"bold",fontSize:"140%"}}>
                              Filter By :
                              </div>
                         </Stack.Item>

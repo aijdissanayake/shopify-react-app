@@ -291,7 +291,7 @@ class Part2Cards extends Component {
                     <div style={{paddingBottom:5}}>  
                     <Stack alignment="center" >
                         <Stack.Item>
-                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                            <div style={{padding:"0.4rem", marginBottom:5,fontWeight:"bold",fontSize:"140%"}}>
                              Filter By :
                              </div>
                         </Stack.Item>
