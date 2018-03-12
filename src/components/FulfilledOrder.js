@@ -38,15 +38,13 @@ class FulfilledOrder extends Component {
             marginTop:"-10%",
         }
 
-        return (
-            
+        return (           
            
-              <tr>
-                  
-                <td>
+              <tr>                  
+                <td id="orderNumber" style={{padding:'1.5%'}}>
                     {order.order_number}
                 </td>
-                <td>
+                <td id="customer" style={{padding:'1.5%'}}>
                     {order.customer}
                 </td>
                 <td>
