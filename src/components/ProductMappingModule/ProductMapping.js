@@ -254,9 +254,10 @@ class ProductMapping extends Component {
           {/*<form>*/}
             <table className="table table-striped">
               
-              <Sticky>
 
               <thead>
+                              <Sticky>
+
                 <Row className="cardWrapper" style={navStyle}>
                 <Card>
 
@@ -281,10 +282,10 @@ class ProductMapping extends Component {
                   </tr>
                 <tr >
                   <Row className="tblHeaders">
-                  <Col sm="5" className="pName">Product Name</Col>
-                  <Col sm="2" className="Pid">Product Item ID</Col>
-                  <Col sm="3" className="tTitle">Tracified Item title</Col>
-                  <Col sm="2" className="Permission">Permission</Col>
+                  <Col sm="5" xs="5" className="pName">Product Name</Col>
+                  <Col sm="2" xs="2" className="Pid">Product Item ID</Col>
+                  <Col sm="3" xs="3"className="tTitle">Tracified Item title</Col>
+                  <Col sm="2" xs="2" className="Permission">Permission</Col>
                 </Row>
                 </tr>
                 
@@ -296,8 +297,9 @@ class ProductMapping extends Component {
                 </Row>*/}
                 </Card>
                 </Row>
+                              </Sticky>
+
               </thead>
-              </Sticky>
                 <br/><br/><br/><br/><br/><br/><br/>
               <tbody>
                 {this.tabRow()}
