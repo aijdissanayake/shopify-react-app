@@ -256,22 +256,9 @@ class ProductMapping extends Component {
               
 
               <thead>
-                              <Sticky>
-
+                <Sticky>
                 <Row className="cardWrapper" style={navStyle}>
                 <Card>
-
-                {/*<Row>                  
-                  <Col sm="10">
-                    <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
-                  </Col>
-                  <Col sm="2">
-                    <Button primary onClick={this.onSubmit}>Save</Button>
-                  </Col>*/}
-                {/*</Row>*/}
-
-                {/*<br />*/}
-                
                   <tr>
                     <td>
                       <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
@@ -282,22 +269,15 @@ class ProductMapping extends Component {
                   </tr>
                 <tr >
                   <Row className="tblHeaders">
-                  <Col sm="5" xs="5" className="pName">Product Name</Col>
-                  <Col sm="2" xs="2" className="Pid">Product Item ID</Col>
-                  <Col sm="3" xs="3"className="tTitle">Tracified Item title</Col>
-                  <Col sm="2" xs="2" className="Permission">Permission</Col>
-                </Row>
+                    <Col sm="5" xs="5" className="pName">Product Name</Col>
+                    <Col sm="2" xs="2" className="Pid">Product Item ID</Col>
+                    <Col sm="3" xs="3"className="tTitle">Tracified Item title</Col>
+                    <Col sm="2" xs="2" className="Permission">Permission</Col>
+                  </Row>
                 </tr>
-                
-                {/*<Row className="tblHeaders">
-                  <Col sm="3" className="pName">Product Name</Col>
-                  <Col sm="3" className="Pid">Product Item ID</Col>
-                  <Col sm="3" className="tTitle">Tracified Item title</Col>
-                  <Col sm="3" className="Permission">Permission</Col>
-                </Row>*/}
                 </Card>
                 </Row>
-                              </Sticky>
+              </Sticky>
 
               </thead>
                 <br/><br/><br/><br/><br/><br/><br/>
