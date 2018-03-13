@@ -1,5 +1,5 @@
 
-.Polaris-Card td{
+#stickyCard .Polaris-Card  td{
     width: 200% !important;
 }
 
@@ -15,7 +15,7 @@
 }
 
 
-.Polaris-Card{
+#stickyCard .Polaris-Card {
     position: fixed;
     z-index: 50;
     width: 250%;
@@ -63,11 +63,11 @@
 @media only screen 
   and (min-device-width: 414px) 
   and (max-device-width: 736px) { 
-    .Polaris-Card td{
+    #stickyCard .Polaris-Card td{
         width: 200% !important;
     }    
     
-    .Polaris-Card{
+    #stickyCard .Polaris-Card {
         position: fixed;
         z-index: 50;
         width: 340%;
@@ -134,11 +134,11 @@
 @media only screen 
   and (min-device-width: 375px) 
   and (max-device-width: 667px)  { 
-    .Polaris-Card td{
+    #stickyCard .Polaris-Card td{
         width: 200% !important;
     }    
     
-    .Polaris-Card{
+    #stickyCard .Polaris-Card {
         position: fixed;
         z-index: 50;
         width: 365%;
@@ -211,11 +211,11 @@
 @media screen 
   and (device-width: 360px) 
   and (device-height: 640px) {
-    .Polaris-Card td{
+    #stickyCard  .Polaris-Card td{
         width: 200% !important;
     }    
     
-    .Polaris-Card{
+    #stickyCard .Polaris-Card {
         position: fixed;
         z-index: 50;
         width: 365%;
@@ -286,11 +286,11 @@
 @media screen 
   and (min-device-width: 1200px) 
   and (max-device-width: 1600px)  { 
-      .Polaris-Card td{
+      #stickyCard .Polaris-Card td{
         width: 200% !important;
     }    
     
-    .Polaris-Card{
+    #stickyCard .Polaris-Card {
         position: fixed;
         z-index: 50;
         width: 260%;

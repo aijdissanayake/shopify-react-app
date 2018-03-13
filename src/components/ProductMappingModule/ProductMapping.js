@@ -10,7 +10,6 @@ import {
   Layout,
   Page,
   FooterHelp,
-  Card,
   Link,
   Button,
   FormLayout,
@@ -23,11 +22,13 @@ import {
   Heading,
   PageActions,
   Select,
+  Card,
   Checkbox,
   Spinner, 
   DisplayText,
   TextStyle 
 } from '@shopify/polaris';
+// import {Card} from 'reactstrap';
 import '@shopify/polaris/styles.css';
 import './AppMP.css';
 import './ProductMapping.css';
@@ -229,6 +230,9 @@ class ProductMapping extends Component {
 
 
   render() {
+    var cardStyle={
+      backgroundColor:"red"
+    }
     const { productName, tracifiedItemID, tracifiedItemtitle, permission, isTraceListLoading, isProductListLoading } = this.state;
 
     var navStyle={
@@ -258,6 +262,7 @@ class ProductMapping extends Component {
               <thead>
                 <Sticky>
                 <Row className="cardWrapper" style={navStyle}>
+                  <div id="stickyCard">
                 <Card>
                   <tr>
                     <td>
@@ -276,6 +281,7 @@ class ProductMapping extends Component {
                   </Row>
                 </tr>
                 </Card>
+                </div>
                 </Row>
               </Sticky>
 
