@@ -30,12 +30,12 @@ class FulfilledOrdersPage extends Component {
   
      
     componentDidMount() {
-        axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
+        axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/products')
             .then(response => {
                 const products = response.data.products;
                 this.setState({ products: response.data.products });
             });
-        axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/fulfilled-orders')
+        axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/fulfilled-orders')
             .then(response => {
                 this.setState({
                     orders: response.data.fulfilledOrders,
@@ -236,7 +236,7 @@ class FulfilledOrdersPage extends Component {
                 float: 'center',
                 fontSize: '14px',
                 marginTop: '1%',
-                marginBottom:'1%'
+                marginBottom:'2%'
             }
     
 
@@ -244,15 +244,19 @@ class FulfilledOrdersPage extends Component {
                 backgroundColor:"white"
             }
     
-
+            var filterByStyle={
+                padding:"0.4rem", 
+                marginBottom:5,
+                fontWeight:"bold",
+            }
 
             return (
                 <Page title="Tracified Orders" separator>
 
-                    <div style={{paddingBottom:5}}>  
+                    <div className="filterWrapper" style={{marginBottom:5}}>  
                     <Stack alignment="center" >
                         <Stack.Item>
-                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                            <div style={{padding:"0.4rem", marginBottom:5, fontWeight:"bold",fontSize:"140%", paddingBottom:'9.5%'}}>
                              Filter By :
                              </div>
                         </Stack.Item>

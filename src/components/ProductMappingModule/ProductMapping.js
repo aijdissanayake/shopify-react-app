@@ -1,6 +1,7 @@
 // ProductMapping.js
 
 import React, { Component } from 'react';
+import Sticky from 'react-sticky-el';
 import ReactDOM from 'react-dom';
 import ProductMappingService from './ProductMappingService';
 import axios from 'axios';
@@ -9,7 +10,6 @@ import {
   Layout,
   Page,
   FooterHelp,
-  Card,
   Link,
   Button,
   FormLayout,
@@ -22,13 +22,16 @@ import {
   Heading,
   PageActions,
   Select,
+  Card,
   Checkbox,
   Spinner, 
   DisplayText,
   TextStyle 
 } from '@shopify/polaris';
+// import {Card} from 'reactstrap';
 import '@shopify/polaris/styles.css';
-import './AppMP.css'
+import './AppMP.css';
+import './ProductMapping.css';
 import { setTimeout } from 'timers';
 // import Spinner from '../../lib/components/Spinner';
 import { request } from 'http';
@@ -108,7 +111,7 @@ class ProductMapping extends Component {
 
 
   componentDidMount() {
-    axios.get('https://tracified-local-test.herokuapp.com/shopify/config/mapping')
+    axios.get('https://tracified-react-api.herokuapp.com/shopify/config/mapping')
       .then(response => {
         this.setState({
           initialMapping: response.data,
@@ -117,7 +120,7 @@ class ProductMapping extends Component {
         console.log(this.state.initialMapping);
 
       });
-    axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
+    axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/products')
       .then(response => {
         var products = response.data.products;
 
@@ -145,20 +148,29 @@ class ProductMapping extends Component {
 
     axios({
       method: 'get',
-      url: 'https://tracified-local-test.herokuapp.com/shopify/tracified/item-list',      headers: {
+      url: 'https://tracified-react-api.herokuapp.com/shopify/tracified/item-list',      headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
     })
       .then(response_ => {
         this.setState({ tracedata: response_.data });
+        console.log("mapping response sttus : " + response_.status);
+        console.log("mapping response data : " + JSON.stringify(response_.data));
 
+        let responseTxt = "";
+        for ( const obj of response_.data) {
+          const itemname = obj.itemName.replace(/\s/g, "-");
+          responseTxt += obj.itemID + " : " + itemname + " , ";
+      }
+
+      this.setState({ tracedata: responseTxt });
         if (response_.status == 200) {
           this.setState({ isTraceListLoading: false });
 
         }
       })
       .catch(function (error) {
-        console.log(error);
+        console.log("error gettin mapping list :" + error);
       })
   }
 
@@ -200,7 +212,7 @@ class ProductMapping extends Component {
      * means it should look like " mapping: this.state.mapping"
      * make sure that state.mapping holds the current selections
      */
-    axios.post('https://tracified-local-test.herokuapp.com//shopify/config/mapping', { mapping })
+    axios.post('https://tracified-react-api.herokuapp.com//shopify/config/mapping', { mapping })
       .then((result) => {
         alert("Mapping Successfully Saved!");
         console.log(result);
@@ -218,7 +230,15 @@ class ProductMapping extends Component {
 
 
   render() {
+    var cardStyle={
+      backgroundColor:"red"
+    }
     const { productName, tracifiedItemID, tracifiedItemtitle, permission, isTraceListLoading, isProductListLoading } = this.state;
+
+    var navStyle={
+      // width: '340%',
+      zindex: '20'
+    }
 
     if (isTraceListLoading || isProductListLoading) {
       return (
@@ -232,35 +252,48 @@ class ProductMapping extends Component {
 
     return (
       <div class="loader" id="productmapping">
-
+        {/*<Sticky>*/}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.1/react.js"></script>
-        <Card title="Product Mapping Details">
-          <br />
-          <form>
+        
+          {/*<form>*/}
             <table className="table table-striped">
+              
+
               <thead>
-                <tr>
-                  <td >Product Name</td>
-                  <td >Product Item ID</td>
-                  <td >Tracified Item title</td>
-                  <td >Permission</td>
+                <Sticky>
+                <Row className="cardWrapper" style={navStyle}>
+                  <div id="stickyCard">
+                <Card>
+                  <tr>
+                    <td>
+                      <p className="MappingDetails" style={{fontWeight:'bold',fontSize:'120%'}}>Product Mapping Details</p>
+                    </td>
+                    <td className="saveBtn">
+                      <Button primary onClick={this.onSubmit}>Save</Button>
+                    </td>
+                  </tr>
+                <tr >
+                  <Row className="tblHeaders">
+                    <Col sm="5" xs="5" className="pName">Product Name</Col>
+                    <Col sm="2" xs="2" className="Pid">Product Item ID</Col>
+                    <Col sm="3" xs="3"className="tTitle">Tracified Item title</Col>
+                    <Col sm="2" xs="2" className="Permission">Permission</Col>
+                  </Row>
                 </tr>
+                </Card>
+                </div>
+                </Row>
+              </Sticky>
+
               </thead>
+                <br/><br/><br/><br/><br/><br/><br/>
               <tbody>
-
                 {this.tabRow()}
-
               </tbody>
-            </table>
-            <Row>
-              <Col sm="10">
-              </Col>
-              <Col sm="2">
-                <Button primary onClick={this.onSubmit}>Save</Button>
-              </Col>
-            </Row>
-          </form>
-        </Card>
+            </table>            
+          {/*</form>*/}
+        {/*</Card>*/}
+        {/*</Sticky>*/}
       </div>
     );
     <ProductMapping /> , document.getElementById('productmapping')

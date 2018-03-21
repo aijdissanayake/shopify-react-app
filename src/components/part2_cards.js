@@ -5,6 +5,7 @@ import * as axios from 'axios';
 import { Container, Row, Col} from 'reactstrap';
 import { Thumbnail, Card, Page, List, Badge, Button, Stack, RadioButton, TextContainer } from '@shopify/polaris';
 import Loading from './Loading';
+// import ErrorMsg from './errorMsg';
 
 const QRCode = require('qrcode.react');
 
@@ -21,7 +22,8 @@ class Part2Cards extends Component {
             search: '',
             isExpanded : true,
             isCheckedCus:false,
-            isCheckedOrd:true
+            isCheckedOrd:true,
+            isError:false,
         };
     }
 
@@ -46,12 +48,12 @@ class Part2Cards extends Component {
     }
 
     componentDidMount() {
-        axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/products')
+        axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/products')
             .then(response => {
                 const products = response.data.products;
                 this.setState({ products: response.data.products });
             });
-        axios.get('https://tracified-local-test.herokuapp.com/shopify/shop-api/orders')
+        axios.get('https://tracified-react-api.herokuapp.com/shopify/shop-api/orders')
             .then(response => {
 
                 let arr = [];
@@ -63,6 +65,11 @@ class Part2Cards extends Component {
                     orders: response.data.orders,
                     isOrderListLoading: false,
                     cardStateArray: arr
+                });
+            }).catch((err) => {
+                this.setState({ 
+                    isError:true,
+                    isOrderListLoading:false
                 });
             });
     }
@@ -86,10 +93,7 @@ class Part2Cards extends Component {
             isCheckedCus: false,
             isCheckedOrd:true
 
-        });
-        
-
-    } 
+        });} 
     
     clickCustomer(){
         console.log("Nishaniii");
@@ -100,9 +104,6 @@ class Part2Cards extends Component {
             isCheckedOrd:false
 
         });
-
-
-    
     } 
 
     render() {
@@ -111,7 +112,11 @@ class Part2Cards extends Component {
 
         if(this.state.isOrderListLoading){
             return <Loading/> ;
+        } 
+        else if(this.state.isError){
+            // return <ErrorMsg error={[status,ErrorMsg]}/>
         }
+        
         else{
         // All the order details
 
@@ -259,7 +264,7 @@ class Part2Cards extends Component {
             marginLeft: '1%',
             float: 'center',
             fontSize: '14px',
-            marginTop: '1%',
+            marginTop: '-4%',
             marginBottom:'1%'
         }
         return (
@@ -286,7 +291,7 @@ class Part2Cards extends Component {
                     <div style={{paddingBottom:5}}>  
                     <Stack alignment="center" >
                         <Stack.Item>
-                            <div style={{padding:"0.4rem", marginBottom:5}}>
+                            <div style={{padding:"0.4rem", marginBottom:5,fontWeight:"bold",fontSize:"140%", paddingBottom:'9%'}}>
                              Filter By :
                              </div>
                         </Stack.Item>

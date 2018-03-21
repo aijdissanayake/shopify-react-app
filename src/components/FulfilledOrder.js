@@ -32,15 +32,19 @@ class FulfilledOrder extends Component {
                 label: item.title
             });
         });
-        return (
-            
+
+        var traceMoreBtnStyle={
+            fontWeight:"bolder",
+            marginTop:"-10%",
+        }
+
+        return (           
            
-              <tr>
-                  
-                <td>
+              <tr>                  
+                <td id="orderNumber" style={{padding:'1.5%'}}>
                     {order.order_number}
                 </td>
-                <td>
+                <td id="customer" style={{padding:'1.5%'}}>
                     {order.customer}
                 </td>
                 <td>
@@ -53,7 +57,9 @@ class FulfilledOrder extends Component {
                     />
                 </td>
                 <td>
-                    <Button size="slim" onClick={this.onTraceSelect}>View Trace More Timeline</Button>
+                    <div className="traceMoreBtnWrapper" style={traceMoreBtnStyle}>
+                        <Button primary size="slim" onClick={this.onTraceSelect} style={traceMoreBtnStyle}>View Trace More Timeline</Button>
+                    </div>
                     <EmbeddedApp
                         apiKey="YOUR_APP_API_KEY"
                         shopOrigin="https://CURRENT_LOGGED_IN_SHOP.myshopify.com"
